@@ -1,0 +1,196 @@
+@import "utils";
+@import "fonts";
+@import "typography";
+@import "reset";
+
+//Home Page
+@import "./blocks/header.scss";
+@import "./blocks/nav.scss";
+@import "./blocks/menu.scss";
+@import "./blocks/dropdown.scss";
+@import "./blocks/how-we-work.scss";
+@import "./blocks/slider.scss";
+@import "./blocks/tabs.scss";
+@import "./blocks/pilots-work.scss";
+@import "./blocks/reviews.scss";
+@import "./blocks/browse.scss";
+@import "./blocks/media.scss";
+@import "./blocks/footer.scss";
+
+//Browse Pilots Page
+@import "./blocks/browse-page.scss";
+@import "./blocks/pilots-list.scss";
+@import "./blocks/pilot.scss";
+
+//Pilot Page
+@import "./blocks/pilot-page.scss";
+@import "./blocks/pilot-info.scss";
+@import "./blocks/pilot-images.scss";
+
+//Job Request Page
+@import "./blocks/job-request.scss";
+@import "./blocks/form.scss";
+
+//Job Review Page
+@import "./blocks/job-review.scss";
+
+//Login and Signup pages
+@import "./blocks/login.scss";
+@import "./blocks/signup.scss";
+
+//Dashboard page
+@import "./blocks/dashboard.scss";
+@import "./blocks/job.scss";
+@import "./blocks/paginate.scss";
+
+//Account Settings page
+@import "./blocks/account-settings.scss";
+
+//Favourites page
+@import "./blocks/favourites.scss";
+
+//Blocked page
+@import "./blocks/blocked.scss";
+
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
+.logo {
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  color: #fff;
+  width: max-content;
+
+  
+  @include tablet {
+    font-size: 1.5rem;
+  }
+
+  @include mobile {
+    font-size: 1.15rem;
+  }
+
+  &--light {
+    color: #000;
+  }
+}
+
+.title {
+  font-size: 2rem;
+
+  font-family: "Exo", sans-serif;
+  text-align: center;
+
+  @include mobile {
+    font-size: 1.5rem;
+  }
+}
+
+.profile-image {
+  border-radius: 50%;
+}
+
+.name {
+  font-weight: 800;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.italic {
+  font-style: italic;
+  color: $steel-grey;
+}
+
+.red {
+  color: #c00000;
+  margin-left: 4px;
+}
+
+.back-to-top {
+  display: none;
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+
+  width: 32px;
+  height: 32px;
+
+  background-color: #fff;
+  border-radius: 50%;
+
+  cursor: pointer;
+
+  z-index: 1;
+
+  &__link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.button {
+  border: 2px solid $orange-accent;
+  border-radius: 4px;
+  width: max-content;
+
+  background-color: transparent;
+  color: #000;
+
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+
+  transition: all 0.3s ease-in-out;
+
+  @include tablet {
+    border: none;
+    background-color: $orange-accent;
+    color: #fff;
+  }
+
+  &:hover {
+    background-color: $orange-accent;
+    color: #fff;
+  }
+
+  &--filled {
+    color: #fff;
+    background-color: $orange-accent;
+  }
+
+  &--white {
+    color: #fff;
+  }
+
+  &--work {
+    border-color: $sky-color;
+
+    @include tablet {
+      background-color: $sky-color;
+    }
+
+    &:hover {
+      background-color: $sky-color;
+    }
+  }
+}

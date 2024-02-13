@@ -1,0 +1,36 @@
+.job {
+  padding: 16px 32px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  border: 1px solid $slate-grey-low-opacity;
+  border-radius: 8px;
+
+  &__controls {
+    padding-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid $slate-grey-low-opacity;
+  }
+
+  &__number {
+    color: $slate-grey;
+  }
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+    
+    &--small {
+      margin-right: 4px;
+    }
+  }
+
+  &__bold {
+    margin-right: 4px;
+  }
+}

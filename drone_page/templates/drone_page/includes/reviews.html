@@ -1,0 +1,49 @@
+{%load static%}
+
+<section class="reviews">
+    <div class="reviews__wrapper">
+      <h2 class="title">Reviews</h2>
+
+      <div class="reviews__container" id="container">
+        <img
+          id="previous"
+          src="{% static "images/reviews/arrow-previous.webp"%}"
+          alt="back arrow"
+          class="reviews__arrow"
+        >
+
+        <div class="reviews__slider" id="slider">
+          <div class="reviews__item">
+            <p>
+              "I found an exceptional drone pilot for my real estate project through this platform. The process was easy, and the pilot's skills were top-notch. I highly recommend this service!"
+            </p>
+
+            <h3 class="reviews__item-title">- John D.</h3>
+          </div>
+
+          <div class="reviews__item">
+            <p>
+              "I needed a drone pilot for an aerial survey job on short notice, and this platform came through for me. The pilot I hired was professional, punctual, and delivered stunning results. Thank you!"
+            </p>
+
+            <h3 class="reviews__item-title">- Sarah K.</h3>
+          </div>
+
+          <div class="reviews__item">
+            <p>
+              "I've used several drone pilot hiring services in the past, but this one stands out. The selection of pilots is diverse, and the support team was responsive to my questions. Will definitely use again!"
+            </p>
+
+            <h3 class="reviews__item-title">- Mike R.</h3>
+          </div>
+        </div>
+
+        <img
+          id="next"
+          src="{% static "images/reviews/arrow-next.webp"%}"
+          alt="next arrow"
+          class="reviews__arrow"
+        >
+      </div>
+    </div>
+  </section>

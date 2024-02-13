@@ -1,0 +1,17 @@
+.menu {
+  position: absolute;
+  display: none;
+
+  width: 100vw;
+
+  background-color: $slate-grey;
+
+  transform: translateX(-100vw);
+  transition: all 0.5s ease-in-out;
+
+  z-index: 1;
+
+  @include mobile {
+    display: block;
+  }
+}

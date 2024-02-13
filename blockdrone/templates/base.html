@@ -1,0 +1,39 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {%block page_title%} {%endblock%}
+    </title>
+    <link
+    rel="shortcut icon"
+    href={% static "images/favicon.png"%}
+    type="image/x-icon"
+    >
+    <link rel="stylesheet" href="{% static "styles/main.css"%}">
+    
+    {%block page_styling%} {%endblock%}
+</head>
+<body 
+{% block page_body_styling %}
+id="page-top" {%endblock%}
+
+>
+    {%block page_header%}{%endblock%}
+    <main>
+    {%block page_content%}
+    
+    {%endblock%}
+    </main>
+    {%block page_footer%}
+    {%include "include/footer.html"%}
+    {%endblock%}
+
+    <script type="text/javascript" src={% static "scripts/main.js"%}></script>
+    <script type="text/javascript" src={% static "scripts/dropdown.js"%}></script>
+    <script type="text/javascript" src={% static "scripts/menu.js"%}></script>
+    <script type="text/javascript" src={% static "scripts/profile-images.js"%}></script>
+</body>
+</html>

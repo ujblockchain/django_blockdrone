@@ -1,0 +1,119 @@
+.browse {
+  padding: 88px 0 0;
+
+  @include mobile {
+    padding: 64px 0 0;
+  }
+
+  &__wrapper {
+    @include limitContentWidth;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @include mobile {
+      padding: 0 8px;
+    }
+  }
+
+  &__subtext {
+    margin-top: 24px;
+  }
+
+  &__container {
+    margin-top: 64px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+
+    text-align: left;
+
+    @include mobile {
+      margin-top: 40px;
+
+      flex-direction: column;
+    }
+  }
+
+  &__item {
+    width: 300px;
+
+    border: 1px solid $slate-grey-low-opacity;
+    background-color: $slate-grey-light;
+
+    &-button {
+      padding: 8px 16px;
+      margin-top: 16px;
+    }
+
+    @include tablet {
+      width: 350px;
+
+      &:last-of-type {
+        display: none;
+      }
+    }
+
+    @include mobile {
+      width: 100%;
+
+      &:last-of-type {
+        display: unset;
+      }
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: 200px;
+  }
+
+  &__text {
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+
+    &-row {
+      margin-top: 8px;
+      display: flex;
+      gap: 8px;
+
+      font-size: 0.9rem;
+      color: $graphite-grey;
+
+      &--border {
+        padding-bottom: 8px;
+        border-bottom: 1px solid $graphite-grey-low-opacity;
+      }
+    }
+  }
+
+  &__name {
+    margin-bottom: 16px;
+
+    color: #000;
+    font-size: 1.1rem;
+    font-weight: 500;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      color: $orange-accent;
+    }
+  }
+
+  &__icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  &__button {
+    margin-top: 24px;
+    padding: 16px 24px;
+
+    @include mobile {
+      padding: 8px 16px;
+    }
+  }
+}

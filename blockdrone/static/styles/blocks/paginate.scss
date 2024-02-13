@@ -1,0 +1,18 @@
+.paginate {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+
+  &-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+  }
+
+  &-number {
+    padding: 8px 16px;
+    border: 1px solid $slate-grey;
+  }
+}

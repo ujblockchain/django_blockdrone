@@ -1,0 +1,83 @@
+.login {
+  width: 100vw;
+  height: calc(100vh - 82px);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @include tablet {
+    height: calc(100vh - 61px);
+  }
+
+  &-html {
+    overflow: hidden;
+  }
+
+  &-body {
+    background-image: url("../images/backgrounds/login-background.webp");
+    background-repeat: repeat;
+    background-position: center;
+    background-size: cover;
+
+    overflow-y: hidden;
+  }
+
+  &__wrapper {
+    padding: 48px 0;
+    width: 100%;
+    height: 100%;
+
+    background-color: #0004;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__container {
+    @include limitContentWidth;
+    padding: 16px;
+    width: 45%;
+
+    border-radius: 8px;
+    background-color: #fff;
+
+    @include tablet {
+      padding: 32px;
+      width: 75%;
+      height: 75%;
+    }
+
+    @include mobile {
+      padding: 16px;
+      width: 95%;
+      height: 70%;
+    }
+  }
+
+  &__controls {
+    padding-bottom: 16px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid $slate-grey-low-opacity;
+  }
+
+  &__icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  &__form {
+    margin-top: 24px;
+  }
+
+  &__text {
+    margin-top: 16px;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+}

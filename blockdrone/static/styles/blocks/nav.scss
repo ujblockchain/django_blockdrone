@@ -1,0 +1,135 @@
+.nav {
+  padding: 24px 88px;
+  width: 100%;
+  height: 92px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  background-color: #0004;
+
+  @include tablet {
+    padding: 16px 16px;
+    height: 76px;
+  }
+
+  @include mobile {
+    padding: 16px 8px;
+    height: 56px;
+  }
+
+  &--light {
+    background-color: #fff;
+    box-shadow: 10px 10px 8px $slate-grey-light;
+  }
+
+  &--main {
+    background-color: #00000079;
+  }
+
+  &--menu {
+    background-color: transparent;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+    width: 40%;
+
+    display: flex;
+    justify-content: start;
+    gap: 16px;
+
+    @include tablet {
+      width: 40%;
+    }
+
+    @include mobile {
+      display: none;
+      width: 45%;
+      gap: 8px;
+
+      font-size: 0.68rem;
+    }
+
+    &--menu {
+      @include mobile {
+        display: flex;
+        gap: 16px;
+        width: 100%;
+      }
+    }
+
+    &--end {
+      justify-content: end;
+    }
+  }
+
+  &__link {
+    font-weight: 600;
+    color: #fff;
+
+    transition: all 0.3s ease-in-out;
+
+    @include tablet {
+      font-size: 0.85rem;
+    }
+
+    &--light {
+      color: #000;
+    }
+
+    &:hover {
+      color: $orange-accent;
+    }
+  }
+
+  &__menu {
+    display: none;
+    width: 24px;
+    height: 24px;
+
+    cursor: pointer;
+
+    @include mobile {
+      display: unset;
+    }
+  }
+
+  &-section {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 8px;
+    width: 75%;
+
+    @include tablet {
+      width: 70%;
+    }
+
+    @include mobile {
+      width: 30%;
+    }
+
+    &__list {
+      width: max-content;
+      margin: 0 16px 0 0;
+    }
+
+    &__welcome {
+      font-size: 0.8rem;
+  
+      @include mobile {
+        display: none;
+      }
+  
+      &--menu {
+        @include mobile {
+          display: unset;
+          color: #fff;
+        }
+      }
+    }
+  }
+}

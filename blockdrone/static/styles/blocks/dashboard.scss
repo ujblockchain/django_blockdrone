@@ -1,0 +1,194 @@
+.dashboard {
+  height: 100%;
+
+  background-color: $slate-grey-light;
+
+  &-body {
+    min-height: 100vh;
+    width: 100vw;
+  }
+
+  &__section {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    gap: 8px;
+    width: 75%;
+
+    @include tablet {
+      width: 50%;
+    }
+  }
+
+  &__list {
+    width: max-content;
+    margin: 0 16px 0 0;
+  }
+
+  &__welcome {
+    font-size: 0.8rem;
+
+    @include mobile {
+      display: none;
+    }
+
+    &--menu {
+      @include mobile {
+        display: unset;
+        color: #fff;
+      }
+    }
+  }
+
+  &__button {
+    padding: 8px 16px;
+
+    @include tablet {
+      padding: 8px;
+      font-size: 0.8rem;
+
+      width: 100%;
+    }
+
+    &--signout {
+      @include mobile {
+        display: none;
+      }
+    }
+  }
+
+  &__wrapper {
+    @include limitContentWidth;
+
+    padding: 32px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+
+    height: 100%;
+
+    @include tablet {
+      align-items: center;
+    }
+  }
+
+  &__user {
+    &-info {
+      padding: 16px 32px;
+      width: 100%;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 10px 10px 8px $slate-grey-light;
+
+      @include tablet {
+        width: 80%;
+      }
+
+      @include mobile {
+        padding: 16px;
+        width: 90%;
+      }
+    }
+
+    &-top {
+      padding-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border-bottom: 1px solid $slate-grey-light;
+    }
+
+    &-image {
+      width: 88px;
+      height: 88px;
+
+      @include tablet {
+        width: 64px;
+        height: 64px;
+      }
+    }
+
+    &-bottom {
+      padding-top: 16px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    &-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    &-icon {
+      width: 48px;
+      height: 48px;
+
+      @include mobile {
+        width: 24px;
+        height: 24px;
+      }
+    }
+
+    &-text {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.9rem;
+      color: $steel-grey;
+
+      @include mobile {
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  &__container {
+    padding: 16px 32px;
+    width: 100%;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 10px 10px 8px $slate-grey-light;
+
+    @include tablet {
+      width: 80%;
+      height: 75%;
+    }
+
+    @include mobile {
+      padding: 16px;
+      width: 90%;
+    }
+  }
+
+  &__controls {
+    padding: 8px 0 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border-bottom: 1px solid $steel-grey;
+  }
+
+  &__item {
+    display: none;
+  }
+
+  &__title {
+    font-size: 1.1rem;
+    font-weight: 500;
+  }
+
+  &__job-list {
+    padding: 0;
+    margin-top: 32px;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    
+    list-style: none;
+  }
+}

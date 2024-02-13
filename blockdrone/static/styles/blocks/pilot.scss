@@ -1,0 +1,63 @@
+.pilot {
+  padding: 16px 24px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  border-radius: 8px;
+  border: 1px solid $slate-grey-light;
+
+  &__top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__icon {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+
+    border-radius: 50%;
+  }
+
+  &__booked {
+    font-size: 0.75rem;
+    color: $slate-grey;
+  }
+
+  &__name {
+    font-weight: 600;
+    letter-spacing: 2px;
+  }
+
+  &__middle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &-item {
+      padding: 4px;
+
+      border-radius: 4px;
+      background-color: $slate-grey-light;
+
+      font-size: 0.75rem;
+    }
+  }
+
+  &__container {
+    display: flex;
+    gap: 16px;
+  }
+
+  &__button {
+    padding: 8px 16px;
+    margin-top: 16px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

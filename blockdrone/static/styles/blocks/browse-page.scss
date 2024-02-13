@@ -1,0 +1,40 @@
+.browse-page {
+  padding: 16px 0;
+  height: 100%;
+
+  background-color: #0004;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &-body {
+    min-height: 100vh;
+    background-image: url("../images/backgrounds/browse-page-background.webp");
+    background-repeat: repeat;
+    background-position: center;
+    background-size: cover;
+  }
+
+  &__wrapper {
+    @include limitContentWidth;
+
+    padding: 16px 0 32px;
+
+    display: flex;
+    flex-direction: column;
+
+    border-radius: 8px;
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+
+    @include tablet {
+      width: 75%;
+    }
+
+    @include tablet {
+      width: 95%;
+    }
+  }
+}

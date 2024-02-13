@@ -1,0 +1,57 @@
+{%extends "base.html"%}
+{%load static%}
+    {%block page_title%}Browse Pilots{%endblock%}
+   
+    {%block page_styling%}
+    {% comment %} <link rel="stylesheet" href="./styles/main.css"> {% endcomment %}
+    {%endblock%}
+
+    {% block page_body_styling %}class="browse-page-body" 
+    {%endblock%}
+
+
+    {%block page_header%}
+    <nav class="nav nav--dark">
+      <div>
+        <a href={% url "index"%} class="logo logo--dark">Block Drones</a>
+      </div>
+    </nav>
+    {%endblock%}
+
+    {%block page_content%}
+
+    <main class = "browse-page">
+      <div class="browse-page__wrapper">
+        <h1 class="title"> Browse Our Pilots </h1>
+        <div class="pilots-list">
+          <div class"pilots-list__wrapper">
+            <ul class ="pilots-list__list">
+              {%include "drone_page/includes/pilot-list.html"%}
+            </ul>
+          </div>
+        </div>
+        <div class="paginate">
+          <img
+            src={% static "images/icons/paginate-back.webp"%}
+            alt="paginate back"
+            class="paginate-icon"
+            id="paginate-back"
+          >
+          
+          <p class="paginate-number" id="paginate-number"></p>
+  
+          <img
+            src={% static "images/icons/paginate-next.webp"%}
+            alt="paginate back"
+            class="paginate-icon"
+            id="paginate-next"
+          >
+        </div>
+      </div>
+      
+    </main>
+
+
+    <script type="text/javascript" src={% static "scripts/browse-pilots.js"%}></script>
+    {%endblock %}
+    

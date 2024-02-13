@@ -1,0 +1,188 @@
+{%load static%}
+<nav class="nav nav--main">
+    <div>
+      <a href="{%url "index" %}" class="logo">Block Drones</a>
+    </div>
+
+    <ul class="nav__list">
+      <li class="nav__item">
+        <a href="#how-it-works" class="nav__link">How We Work</a>
+      </li>
+
+      <li class="nav__item">
+        <a href="{% url "browse-pilots" %} "class="nav__link">Browse Pilots</a>
+      </li>
+
+      <li class="nav__item">
+        <a href="{%url "job-review"%}" class="nav__link">Review Job</a>
+      </li>
+    </ul>
+
+    <div class="header__container">
+      <a
+        href="./pages/accounts/login.html"
+        class="button button--white header__button"
+        id="login-button"
+      >
+        Login
+      </a>
+
+      <a
+        href="./pages/accounts/signup.html"
+        class="button button--white header__button"
+        id="signup-button"
+      >
+        Sign Up
+      </a>
+
+      <div class="dropdown" id="dropdown">
+        <div class="dropdown__background" id="dropdown-background"></div>
+
+        <img src="" alt="user icon" class="profile-image dropdown__image-small" id="dropdown-button">
+
+        <div class="dropdown__content" id="dropdown-content">
+          <div class="dropdown__content-top">
+            <img
+              src=""
+              alt="icon"
+              class="profile-image dropdown__image"
+            >
+
+            <p id="dropdown-user-name"></p>
+          </div>
+
+          <ul class="dropdown__list">
+            <li class="dropdown__item">
+              <div>
+                <a href="./pages/profile/dashboard.html" class="dropdown__link">My Profile</a>
+              </div>
+            </li>
+
+            <li class="dropdown__item">
+              <div>
+                <a href="./pages/profile/account-settings.html" class="dropdown__link">Account Settings</a>
+              </div>
+            </li>
+
+            <li class="dropdown__item">
+              <div>
+                <a href="./pages/profile/favourites.html" class="dropdown__link">Favourite Pilots</a>
+              </div>
+            </li>
+
+            <li class="dropdown__item">
+              <div>
+                <a href="./pages/profile/blocked.html" class="dropdown__link">Blocked Pilots</a>
+              </div>
+            </li>
+
+            <li class="dropdown__item">
+              <div>
+                <p class="dropdown__link">Features</p>
+              </div>
+            </li>
+          </ul>
+
+          <div class="dropdown__content-bottom">
+            <button class="dropdown__button" id="sign-out">Sign Out</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <img
+      src={% static "images/icons/menu.webp"%}
+      alt="menu icon"
+      class="nav__menu"
+      id="menu-toggle"
+    >
+  </nav>
+
+  <div class="menu" id="menu">
+    <nav class="nav nav--menu">
+      <ul class="nav__list nav__list--menu">
+        <li class="nav__item">
+          <a href="#how-it-works" class="nav__link">How We Work</a>
+        </li>
+
+        <li class="nav__item">
+          <a href="{% url "browse-pilots" %}"class="nav__link">Browse Pilots</a>
+        </li>
+
+        <li class="nav__item">
+          <a href="{% url "job-review"%}"class="nav__link">Review Job</a>
+        </li>
+      </ul>
+
+      <div class="header__container header__container--menu">
+        <a
+          href="./pages/accounts/login.html"
+          class="button button--white header__button"
+          id="login-menu"
+        >
+          Login
+        </a>
+
+        <a
+          href="./pages/accounts/signup.html"
+          class="button button--white header__button"
+          id="signup-menu"
+        >
+          Sign Up
+        </a>
+
+        <div class="dropdown" id="dropdown-menu">
+          <div class="dropdown__background" id="dropdown-background-menu"></div>
+
+          <img src={% static "images/no-icon.webp"%} alt="user icon" class="profile-image dropdown__image-small" id="dropdown-button-menu">
+
+          <div class="dropdown__content" id="dropdown-content-menu">
+            <div class="dropdown__content-top">
+              <img
+                src={% static "images/no-icon.webp"%} 
+                alt="icon"
+                class="profile-image dropdown__image"
+              >
+
+              <p id="dropdown-user-name-menu"></p>
+            </div>
+
+            <ul class="dropdown__list">
+              <li class="dropdown__item">
+                <div>
+                  <a href="./pages/profile/dashboard.html" class="dropdown__link">My Profile</a>
+                </div>
+              </li>
+
+              <li class="dropdown__item">
+                <div>
+                  <a href="./pages/profile/account-settings.html" class="dropdown__link">Account Settings</a>
+                </div>
+              </li>
+
+              <li class="dropdown__item">
+                <div>
+                  <a href="./pages/profile/favourites.html" class="dropdown__link">Favourite Pilots</a>
+                </div>
+              </li>
+
+              <li class="dropdown__item">
+                <div>
+                  <a href="./pages/profile/blocked.html" class="dropdown__link">Blocked Pilots</a>
+                </div>
+              </li>
+
+              <li class="dropdown__item">
+                <div>
+                  <p class="dropdown__link">Features</p>
+                </div>
+              </li>
+            </ul>
+
+            <div class="dropdown__content-bottom">
+              <button class="dropdown__button" id="sign-out-menu">Sign Out</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>

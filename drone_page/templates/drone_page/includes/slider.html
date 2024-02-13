@@ -1,0 +1,59 @@
+{% load static%}
+
+<section class="slider">
+    <div class="slider__wrapper">
+      <div class="tabs">
+        <ul class="tabs__list">
+          <li class="tabs__item tabs__item--active" id="tab-1">
+            <div>
+              <p class="tabs__title">Real Estate</p>
+
+              <p class="tabs__description">Stunning aerial views for property listings.</p>
+            </div>
+          </li>
+
+          <li class="tabs__item" id="tab-2">
+            <div>
+              <p class="tabs__title">Events</p>
+
+              <p class="tabs__description">Unique aerial coverage for memorable events.</p>
+            </div>
+          </li>
+
+          <li class="tabs__item" id="tab-3">
+            <div>
+              <p class="tabs__title">Construction</p>
+
+              <p class="tabs__description">Precise aerial surveys for project progress.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="slider__images">
+        <div class="slider__image slider__image--active" id="image-1">
+          <img
+            src={% static "images/slider/real-estate.webp"%}
+            alt="real estate services"
+            class="slider__image-pic"
+          >
+        </div>
+
+        <div class="slider__image" id="image-2">
+          <img
+            src={% static "images/slider/wedding.webp"%}
+            alt="wedding event"
+            class="slider__image-pic"
+          >
+        </div>
+
+        <div class="slider__image" id="image-3">
+          <img
+            src={% static "images/slider/construction.webp"%}
+            alt="construction site"
+            class="slider__image-pic"
+          >
+        </div>
+      </div>
+    </div>
+  </section>

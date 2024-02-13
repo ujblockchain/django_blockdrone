@@ -1,0 +1,128 @@
+{%extends "base.html" %}
+{%load static %}
+
+{%block page_title%}Complete Job Request Form {%endblock%}
+
+{% block page_body_styling %}class= "job-request-body" 
+{%endblock%}
+
+{%block page_header%}
+<nav class="nav">
+    <div>
+      <a href="{% url "index" %}" class="logo logo--dark">Block Drones</a>
+    </div>
+  </nav>
+{%endblock%}
+
+{%block page_content%}
+<main class="job-request">
+    <div class="job-request__wrapper">
+      <div class="job-request__container">
+        <div class="job-request__controls">
+          <div></div>
+
+          <h1 class="title">Job Request Form</h1>
+
+          <a href="javascript:history.back()">
+            <img
+              src="{% static "images/icons/close.webp" %}"
+              alt="close"
+              class="job-request__icon"
+            >
+          </a>
+        </div>
+
+        <p class="job-request__text">
+          Kindly fill the form below and our representative will get in touch with you.
+        </p>
+
+        <form class="form job-request__form">
+          <div class="form__row">
+            <input
+              type="text"
+              name="organization-name"
+              id="organization-name"
+              placeholder="Organization Name"
+              class="form__field"
+            >
+          </div>
+
+          <div class="form__row">
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email"
+              class="form__field"
+            >
+
+            <input
+              type="tel"
+              name="phone"
+              id="phone"
+              placeholder="Telephone Number"
+              class="form__field"
+            >
+          </div>
+
+          <div class="form__row">
+            <select
+              name="select-pilot"
+              id="select-pilot"
+              class="form__field"
+            >
+              <option value="default" disabled selected>Select Pilot</option>
+              <option value="Pilot-1">Pilot 1</option>
+              <option value="Pilot-2">Pilot 2</option>
+              <option value="Pilot-3">Pilot 3</option>
+              <option value="Pilot-4">Pilot 4</option>
+              <option value="Pilot-5">Pilot 5</option>
+            </select>
+
+            <select
+              name="select-job-type"
+              id="select-job-type"
+              class="form__field"
+            >
+              <option value="default" disabled selected>Select Job Type</option>
+              <option value="Pilot-1">Aerial Photography and Videography</option>
+              <option value="Pilot-2">Filmmaking and Cinematography</option>
+              <option value="Pilot-3">Event Coverage</option>
+              <option value="Pilot-4">Real Estate Marketing</option>
+              <option value="Pilot-5">Custom Services</option>
+            </select>
+          </div>
+
+          <div class="form__row">
+            <input
+              type="text"
+              name="address"
+              id="address"
+              class="form__field"
+              placeholder="Organization Address"
+            >
+          </div>
+
+          <div class="form__row">
+            <textarea
+              name=""
+              id=""
+              cols="30"
+              rows="10"
+              placeholder="Any extra information you need to tell us?"
+              class="form__field form__field--textarea"
+            ></textarea>
+          </div>
+
+          <div class="form__row form__row--submit">
+            <input
+              type="submit"
+              value="Submit"
+              class="form__submit"
+            >
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+{%endblock%}

@@ -1,0 +1,23 @@
+@mixin hover($_property, $_toValue) {
+  transition: #{$_property} 0.3s;
+  &:hover {
+    #{$_property}: $_toValue;
+  }
+}
+
+@mixin limitContentWidth {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+@mixin tablet {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: 600px) {
+    @content;
+  }
+}

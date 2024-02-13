@@ -1,0 +1,57 @@
+.media {
+  padding: 88px 0;
+
+  @include mobile {
+    padding: 64px 0;
+  }
+
+  &__wrapper {
+    @include limitContentWidth;
+
+    text-align: center;
+  }
+
+  &__title {
+    margin-bottom: 24px;
+  }
+
+  &__container {
+    margin-top: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 64px;
+
+    @include mobile {
+      flex-wrap: wrap;
+    }
+  }
+
+  &__item {
+    padding: 8px;
+
+    border-radius: 8px;
+    background-color: transparent;
+
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.144);
+    }
+  }
+
+  &__image {
+    width: 150px;
+    height: 48px;
+
+    @include tablet {
+      width: 125px;
+    }
+
+    @include mobile {
+      width: 100px;
+      height: 32px;
+    }
+  }
+}
