@@ -1,0 +1,78 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en" class="login-html">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link
+      rel="shortcut icon"
+      href="{% static "images/favicon.png"%}"
+      type="image/x-icon"
+    >
+    <link rel="stylesheet" href="{% static "styles/main.css" %}">
+  </head>
+  <body class="login-body">
+    <nav class="nav nav--dark">
+      <div>
+        <a href="{% url "index" %} "class="logo logo--dark">Block Drones</a>
+      </div>
+    </nav>
+
+    <main class="login">
+      <div class="login__wrapper">
+        <div class="login__container">
+          <div class="login__controls">
+            <div></div>
+
+            <h1 class="title">Login to Your Account</h1>
+
+            <a href="../../index.html">
+              <img
+                src="{% static "images/icons/close.webp"%}"
+                alt="close"
+                class="login__icon"
+              >
+            </a>
+          </div>
+
+          <form class="form login__form" id="form">
+            <div class="form__row">
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Email"
+                class="form__field"
+                id="email"
+              >
+            </div>
+
+            <div class="form__row">
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Password"
+                class="form__field"
+                id="password"
+              >
+            </div>
+
+            <div class="form__row form__row--submit">
+              <input
+                type="submit"
+                value="Login"
+                class="form__submit"
+              >
+            </div>
+          </form>
+
+          <p class="login__text">Don't have an account? <a href="{% url "sign-up"%}">Sign up here</a></p>
+        </div>
+      </div>
+    </main>
+  </body>
+
+  <script src="{% static "scripts/login.js"%} "type="module"></script>
+</html>

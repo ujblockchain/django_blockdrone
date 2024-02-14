@@ -1,0 +1,137 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en" class="signup-html">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up To Our Platflorm</title>
+    <link
+      rel="shortcut icon"
+      href={% static "images/favicon.png"%}
+      type="image/x-icon"
+    >
+    <link rel="stylesheet" href={% static "styles/main.css" %}>
+  </head>
+  <body class="signup-body">
+    <nav class="nav nav--dark">
+      <div>
+        <a href="{% url "index"%} "class="logo logo--dark">Block Drones</a>
+      </div>
+    </nav>
+
+    <main class="signup">
+      <div class="signup__wrapper">
+        <div class="signup__container">
+          <div class="signup__controls">
+            <div></div>
+
+            <h1 class="title">Sign Up To Our Platform</h1>
+
+            <a href="../../index.html">
+              <img
+                src="../../images/icons/close.webp"
+                alt="close"
+                class="signup__icon"
+              >
+            </a>
+          </div>
+
+          <form class="form signup__form" id="form">
+            {% csrf_token %}
+
+            {{form}}
+            
+            <div class="form__row">
+                {% comment %} first name {% endcomment %}
+              <input
+                type="text"
+                name="firstName"
+                id="firstName"
+                placeholder="First Name"
+                class="form__field"
+                required
+              >
+                {% comment %} surname {% endcomment %}
+              <input
+                type="text"
+                name="surname"
+                id="surname"
+                placeholder="Last Name"
+                class="form__field"
+                required
+              >
+            </div>
+
+            <div class="form__row">
+                {% comment %} email {% endcomment %}
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Email"
+                class="form__field"
+              >
+                {% comment %} phone {% endcomment %}
+              <input
+                type="tel"
+                name="phone"
+                id="phone"
+                placeholder="Telephone Number"
+                class="form__field"
+              >
+            </div>
+
+            <div class="form__row">
+                {% comment %} client selection {% endcomment %}
+              <select name="type" id="type" class="form__field">
+                <option value="0" disabled selected>Which One Are You?</option>
+                <option value="pilot">Pilot</option>
+                <option value="client">Client</option>
+              </select>
+            </div>
+
+            <div class="form__row">
+                {% comment %} password {% endcomment %}
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Password"
+                minlength="6"
+                class="form__field"
+                required
+              >
+            </div>
+
+            <div class="form__row">
+                {% comment %} password {% endcomment %}
+              <input
+                type="password"
+                name="confirmPassword"
+                id="confirmPassword"
+                placeholder="Confirm Password"
+                minlength="6"
+                class="form__field"
+                required
+              >
+            </div>
+
+            <div class="form__row form__row--submit">
+                {% comment %} submit {% endcomment %}
+              <input
+                type="submit"
+                value="Sign Up"
+                class="form__submit"
+                id="signup"
+              >
+            </div>
+          </form>
+
+          <p class="login__text">Already have an account? <a href="{% url "login"%}">Login here</a></p>
+        </div>
+      </div>
+    </main>
+  </body>
+
+  <script src="../../scripts/signup.js" type="module"></script>
+</html>

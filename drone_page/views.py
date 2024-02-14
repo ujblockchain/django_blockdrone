@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from . forms import SignUpForm
 # Create your views here.
 
 
@@ -27,11 +27,13 @@ def job_review(request):
 
     return render(request, template_page, context)
 
+
 def job_request(request):
     template_page = "drone_page/job-request.html"
     context = {}
 
     return render(request, template_page, context)
+
 
 def login(request):
     template_page = "drone_page/accounts/login.html"
@@ -39,14 +41,26 @@ def login(request):
 
     return render(request, template_page, context)
 
+
 def logout(request):
     template_page = "drone_page/accounts/logout.html"
     context = {}
 
     return render(request, template_page, context)
 
+
 def sign_up(request):
-    template_page = "drone_page/accounts/sign_up.html"
+    template_page = "drone_page/accounts/signup.html"
+    if request.method == "POST":
+        # get the user inputs
+        form = SignUpForm(request.Post)
+        # validate the inpits
+        if form.is_valid():
+             pass
+        # redirect to login page
+    
+    # create form when someone lands on the page
+    form = SignUpForm()
     context = {}
 
     return render(request, template_page, context)
