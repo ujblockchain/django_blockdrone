@@ -1,15 +1,14 @@
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from django.contrib.auth.models import User
-
-
-from .models import DroneUser
+from django.contrib.auth import get_user_model
+#custom user
+User = get_user_model()
 
 
 class SignUpForm(UserCreationForm):
 
     class Meta(UserCreationForm.Meta):
-        model = DroneUser
+        model = User
         fields = [
             "username",
             "first_name",
@@ -17,4 +16,6 @@ class SignUpForm(UserCreationForm):
             "email",
             "password1",
             "password2",
-        ] + ("user_type", "tel_number")
+            "user_type",
+            "tel_number",
+        ]
