@@ -37,8 +37,11 @@ INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
-    "livereload",
     "django.contrib.staticfiles",
+    # third party
+    "livereload",
+    # app
+    "users.apps.UsersConfig",
 ]
 
 MIDDLEWARE = [
@@ -113,6 +116,10 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
+
+
+# custom user model
+AUTH_USER_MODEL = 'users.CustomUser'
 
 
 # Static files (CSS, JavaScript, Images)
