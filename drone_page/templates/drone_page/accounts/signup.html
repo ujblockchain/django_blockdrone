@@ -27,97 +27,52 @@
 
             <h1 class="title">Sign Up To Our Platform</h1>
 
-            <a href="../../index.html">
+            <a href="{% url "index"%} ">
               <img
-                src="../../images/icons/close.webp"
+                src={% static "images/icons/close.webp"%}
                 alt="close"
                 class="signup__icon"
               >
             </a>
           </div>
 
-          <form class="form signup__form" id="form">
+          <form action="" class="form signup__form" id="form" method="POST">
             {% csrf_token %}
-
-            {{form}}
-            
             <div class="form__row">
-                {% comment %} first name {% endcomment %}
-              <input
-                type="text"
-                name="firstName"
-                id="firstName"
-                placeholder="First Name"
-                class="form__field"
-                required
-              >
-                {% comment %} surname {% endcomment %}
-              <input
-                type="text"
-                name="surname"
-                id="surname"
-                placeholder="Last Name"
-                class="form__field"
-                required
-              >
+
+              {{form.first_name}}
+              {{form.error}}
+
+              {{form.last_name}}
+              {{form.error}}
+
             </div>
 
             <div class="form__row">
-                {% comment %} email {% endcomment %}
-              <input
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Email"
-                class="form__field"
-              >
-                {% comment %} phone {% endcomment %}
-              <input
-                type="tel"
-                name="phone"
-                id="phone"
-                placeholder="Telephone Number"
-                class="form__field"
-              >
+
+              {{form.email}}
+              {{form.error}}
+
+              {{form.tel_number}}
+              {{form.error}}
             </div>
 
             <div class="form__row">
-                {% comment %} client selection {% endcomment %}
-              <select name="type" id="type" class="form__field">
-                <option value="0" disabled selected>Which One Are You?</option>
-                <option value="pilot">Pilot</option>
-                <option value="client">Client</option>
-              </select>
+
+              {{form.user_type}}
+              {{form.error}}    
             </div>
 
             <div class="form__row">
-                {% comment %} password {% endcomment %}
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Password"
-                minlength="6"
-                class="form__field"
-                required
-              >
+              {{form.password1}}
+              {{form.error}} 
             </div>
-
             <div class="form__row">
-                {% comment %} password {% endcomment %}
-              <input
-                type="password"
-                name="confirmPassword"
-                id="confirmPassword"
-                placeholder="Confirm Password"
-                minlength="6"
-                class="form__field"
-                required
-              >
+              {{form.password2}}
+              {{form.error}}   
             </div>
 
             <div class="form__row form__row--submit">
-                {% comment %} submit {% endcomment %}
               <input
                 type="submit"
                 value="Sign Up"
@@ -125,13 +80,13 @@
                 id="signup"
               >
             </div>
+         
           </form>
-
           <p class="login__text">Already have an account? <a href="{% url "login"%}">Login here</a></p>
         </div>
       </div>
     </main>
   </body>
 
-  <script src="../../scripts/signup.js" type="module"></script>
+  <script src="{% static "scripts/signup.js"%}" type="module"></script>
 </html>

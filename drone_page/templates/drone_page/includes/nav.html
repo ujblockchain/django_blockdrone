@@ -20,7 +20,7 @@
 
     <div class="header__container">
       <a
-        href="./pages/accounts/login.html"
+        href="{% url "login" %} "
         class="button button--white header__button"
         id="login-button"
       >
@@ -28,7 +28,7 @@
       </a>
 
       <a
-        href="./pages/accounts/signup.html"
+        href="{% url "sign-up" %}"
         class="button button--white header__button"
         id="signup-button"
       >
@@ -116,7 +116,7 @@
 
       <div class="header__container header__container--menu">
         <a
-          href="./pages/accounts/login.html"
+          href="{% url "login" %} "
           class="button button--white header__button"
           id="login-menu"
         >
@@ -124,7 +124,7 @@
         </a>
 
         <a
-          href="./pages/accounts/signup.html"
+          href="{% url "sign-up" %}"
           class="button button--white header__button"
           id="signup-menu"
         >
