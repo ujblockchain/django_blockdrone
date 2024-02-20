@@ -11,76 +11,80 @@ class CustomUserAdmin(UserAdmin, admin.ModelAdmin):
     form = CustomUserChangeForm
 
     list_display = [
-        'id',
-        'first_name',
-        'last_name',
-        'email',
-        'user_type',
-        'tel_number',
+        "id",
+        "username",
+        "first_name",
+        "last_name",
+        "email",
+        "user_type",
+        "tel_number",
     ]
     list_display_links = [
-        'id',
-        'first_name',
-        'last_name',
-        'email',
-        'user_type',
-        'tel_number',
+        "id",
+        "first_name",
+        "last_name",
+        "email",
+        "user_type",
+        "tel_number",
     ]
 
     search_fields = [
-        'id',
-        'first_name',
-        'last_name',
-        'email',
-        'user_type',
-        'tel_number',
+        "id",
+        "first_name",
+        "last_name",
+        "email",
+        "user_type",
+        "tel_number",
     ]
     list_per_page = 100
 
     fieldsets = [
         [
-            'Personal Info',
+            "Personal Info",
             {
-                "classes": ["wide", "extrapretty", ],
-                'fields': [
-                    'first_name',
-                    'last_name',
-                    'email',
-                    'username',
-                    'password',
+                "classes": [
+                    "wide",
+                    "extrapretty",
+                ],
+                "fields": [
+                    "first_name",
+                    "last_name",
+                    "email",
+                    "username",
+                    "password",
                 ],
             },
         ],
         [
-            'Other info',
+            "Other info",
             {
                 "classes": ["wide", "extrapretty", "collapse"],
-                'fields': [
-                    'user_type',
-                    'tel_number',
+                "fields": [
+                    "user_type",
+                    "tel_number",
                 ],
             },
         ],
         [
-            'Permissions',
+            "Permissions",
             {
                 "classes": ["wide", "extrapretty", "collapse"],
-                'fields': [
-                    'is_superuser',
-                    'is_staff',
-                    'is_active',
-                    'groups',
-                    'user_permissions',
+                "fields": [
+                    "is_superuser",
+                    "is_staff",
+                    "is_active",
+                    "groups",
+                    "user_permissions",
                 ],
             },
         ],
         [
-            'Important dates',
+            "Important dates",
             {
                 "classes": ["wide", "extrapretty", "collapse"],
-                'fields': [
-                    'last_login',
-                    'date_joined',
+                "fields": [
+                    "last_login",
+                    "date_joined",
                 ],
             },
         ],
@@ -91,14 +95,14 @@ class CustomUserAdmin(UserAdmin, admin.ModelAdmin):
             None,
             {
                 "fields": [
-                    'first_name',
-                    'last_name',
-                    'username',
-                    'email',
-                    'user_type',
-                    'tel_number',
-                    'password1',
-                    'password2',
+                    "first_name",
+                    "last_name",
+                    "username",
+                    "email",
+                    "user_type",
+                    "tel_number",
+                    "password1",
+                    "password2",
                 ],
             },
         ],

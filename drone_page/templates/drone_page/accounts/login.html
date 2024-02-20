@@ -36,27 +36,14 @@
             </a>
           </div>
 
-          <form class="form login__form" id="form">
+          <form class="form login__form" id="form" method="POST">
+            {%csrf_token%}
             <div class="form__row">
-              <input
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Email"
-                class="form__field"
-                id="email"
-              >
+              {{form.username}}
             </div>
 
             <div class="form__row">
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Password"
-                class="form__field"
-                id="password"
-              >
+              {{form.password}}
             </div>
 
             <div class="form__row form__row--submit">
@@ -74,5 +61,5 @@
     </main>
   </body>
 
-  <script src="{% static "scripts/login.js"%} "type="module"></script>
+  {% comment %} <script src="{% static "scripts/login.js"%} "type="module"></script> {% endcomment %}
 </html>

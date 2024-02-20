@@ -1,0 +1,153 @@
+{%load static%}
+<nav class="nav nav--light">
+    <div>
+      <a href="{% url "index"%}" class="logo logo--light">Block Drones</a>
+    </div>
+
+    <div class="nav-section">
+      <ul class="nav__list nav-section__list">
+        <li class="nav__item">
+          <a href="../browse-pilots.html" class="nav__link nav__link--light">Browse Pilots</a>
+        </li>
+
+        <li class="nav__item">
+          <a href="../job-review.html" class="nav__link nav__link--light">Review Job</a>
+        </li>
+      </ul>
+
+      <p class="nav-section__welcome" id="welcome"></p>
+
+      <div class="dropdown" id="dropdown">
+        <div class="dropdown__background" id="dropdown-background"></div>
+
+        <img src="" alt="user icon" class="profile-image dropdown__image-small" id="dropdown-button">
+
+        <div class="dropdown__content" id="dropdown-content">
+          <div class="dropdown__content-top">
+            <img
+              src=""
+              alt="icon"
+              class="profile-image dropdown__image"
+            >
+
+            <p id="dropdown-user-name"></p>
+          </div>
+
+          <ul class="dropdown__list">
+            <li class="dropdown__item">
+              <div>
+                <a href="./dashboard.html" class="dropdown__link">My Profile</a>
+              </div>
+            </li>
+
+            <li class="dropdown__item">
+              <div>
+                <a href="./account-settings.html" class="dropdown__link">Account Settings</a>
+              </div>
+            </li>
+
+            <li class="dropdown__item">
+              <div>
+                <a href="./favourites.html" class="dropdown__link">Favourite Pilots</a>
+              </div>
+            </li>
+
+            <li class="dropdown__item">
+              <div>
+                <a href="./blocked.html" class="dropdown__link">Blocked Pilots</a>
+              </div>
+            </li>
+
+            <li class="dropdown__item">
+              <div>
+                <p class="dropdown__link">Features</p>
+              </div>
+            </li>
+          </ul>
+
+          <div class="dropdown__content-bottom">
+            <a href="{%url "logout" %}" class="dropdown__button" id="sign-out-menu">Sign Out</a>
+          </div>
+        </div>
+      </div>
+
+      <img
+        src="../../images/icons/menu-black.webp"
+        alt="menu icon"
+        class="nav__menu"
+        id="menu-toggle"
+      >
+    </div>
+  </nav>
+ 
+  <div class="menu" id="menu">
+    <nav class="nav nav--menu">
+      <ul class="nav__list nav__list--menu"> 
+        <li class="nav__item">
+          <a href="../browse-pilots.html" class="nav__link">Browse Pilots</a>
+        </li>
+
+        <li class="nav__item">
+          <a href="../job-review.html" class="nav__link">Review Job</a>
+        </li>
+      </ul>
+
+      <div class="header__container header__container--menu">
+        <p class="account-settings__welcome account-settings__welcome--menu" id="welcome"></p>
+
+        <div class="dropdown dropdown--menu" id="dropdown-menu">
+          <div class="dropdown__background" id="dropdown-background-menu"></div>
+
+          <img src="../images/no-icon.webp" alt="user icon" class="profile-image dropdown__image-small" id="dropdown-button-menu">
+
+          <div class="dropdown__content" id="dropdown-content-menu">
+            <div class="dropdown__content-top">
+              <img
+                src="../images/no-icon.webp"
+                alt="icon"
+                class="profile-image dropdown__image"
+              >
+
+              <p id="dropdown-user-name-menu"></p>
+            </div>
+
+            <ul class="dropdown__list">
+              <li class="dropdown__item">
+                <div>
+                  <a href="./dashboard.html" class="dropdown__link">My Profile</a>
+                </div>
+              </li>
+
+              <li class="dropdown__item">
+                <div>
+                  <a href="./account-settings.html" class="dropdown__link">Account Settings</a>
+                </div>
+              </li>
+
+              <li class="dropdown__item">
+                <div>
+                  <a href="./favourites.html" class="dropdown__link">Favourite Pilots</a>
+                </div>
+              </li>
+
+              <li class="dropdown__item">
+                <div>
+                  <a href="./blocked.html" class="dropdown__link">Blocked Pilots</a>
+                </div>
+              </li>
+
+              <li class="dropdown__item">
+                <div>
+                  <p class="dropdown__link">Features</p>
+                </div>
+              </li>
+            </ul>
+
+            <div class="dropdown__content-bottom">
+              <a href="{%url "logout" %}" class="dropdown__button" id="sign-out-menu">Sign Out</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>

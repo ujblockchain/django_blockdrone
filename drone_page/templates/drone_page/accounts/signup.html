@@ -36,40 +36,45 @@
             </a>
           </div>
 
-          <form action="" class="form signup__form" id="form" method="POST">
+          <form  class="form signup__form" id="form" method="POST">
             {% csrf_token %}
+            <div class="form__row">
+              {{form.username}}
+              {{form.username.error}}   
+            </div>
             <div class="form__row">
 
               {{form.first_name}}
-              {{form.error}}
+              {{form.first_name.error}}
 
               {{form.last_name}}
-              {{form.error}}
+              {{form.last_name.error}}
 
             </div>
 
             <div class="form__row">
 
               {{form.email}}
-              {{form.error}}
+              {{form.email.error}}
 
               {{form.tel_number}}
-              {{form.error}}
+              {{form.tel_number.error}}
             </div>
 
             <div class="form__row">
 
               {{form.user_type}}
-              {{form.error}}    
+              {{form.user_type.error}}    
             </div>
 
             <div class="form__row">
               {{form.password1}}
-              {{form.error}} 
+              {{form.password1.error}} 
             </div>
+
             <div class="form__row">
               {{form.password2}}
-              {{form.error}}   
+              {{form.password2.error}}   
             </div>
 
             <div class="form__row form__row--submit">
@@ -88,5 +93,5 @@
     </main>
   </body>
 
-  <script src="{% static "scripts/signup.js"%}" type="module"></script>
+  {% comment %} <script src="{% static "scripts/signup.js"%}" type="module"></script> {% endcomment %}
 </html>

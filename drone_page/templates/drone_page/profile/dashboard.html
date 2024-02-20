@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{%load static%}
+
+{%block page_title%} 
+Dashboard | Block Drones
+{%endblock%}
+
+{%block page_body_styling%} 
+class="dashboard-body"
+{%endblock%}
+
+{%block page_header%}
+    {%include "drone_page/profile/includes/profile-nav.html"%}
+{%endblock%}
+{%block page_content%}
+
+{%include "drone_page/profile/includes/dashboard-detail.html"%}
+
+<script type="text/javascript" src="../../scripts/dashboard.js"></script>
+
+<script type="text/javascript" src="{% static "scripts/dropdown.js"%}"></script>
+<script type="text/javascript" src="{% static "scripts/menu.js" %}"></script>
+<script type="text/javascript" src="../../scripts/signout.js"></script>
+<script type="text/javascript" src="../../scripts/profile-images.js"></script>
+{%endblock%}
