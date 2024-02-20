@@ -1,0 +1,156 @@
+{%extends "base.html"%}
+{%load static%}
+
+
+{%block page_title%}
+    Favourite Pilots | Block Drones
+{%endblock%}
+
+{%block page_body_styling%}
+ class="favourites-body"
+{%endblock%}
+
+{%block page_header%}
+    {%include "drone_page/profile/includes/profile-nav.html"%}
+{%endblock%}
+
+{%block page_content%}
+<main class="favourites">
+    <div class="favourites__wrapper">
+    <div class="favourites__container">
+        <h2 class="favourites__title">Favourite Pilots <span class="italic">(6)</span>:</h2>
+
+        <ul class="favourites__list">
+        <li class="favourites__item">
+            <div class="favourites__item-container">
+            <div class="favourites__item-info">
+                <p class="favourites__item-number">1</p>
+
+                <img
+                src="../../images/pilot-1/icon.webp"
+                alt="pilot icon"
+                class="profile-image favourites__item-image"
+                >
+
+                <h3 class="favourites__item-name">Pilot 1</h3>
+            </div>
+
+            <a href="../pilots/pilot-1.html" class="favourites__item-button">View</a>
+            </div>
+        </li>
+
+        <li class="favourites__item">
+            <div class="favourites__item-container">
+            <div class="favourites__item-info">
+                <p class="favourites__item-number">2</p>
+
+                <img
+                src="../../images/pilot-2/icon.webp"
+                alt="pilot icon"
+                class="profile-image favourites__item-image"
+                >
+
+                <h3 class="favourites__item-name">Pilot 2</h3>
+            </div>
+
+            <a href="../pilots/pilot-2.html" class="favourites__item-button">View</a>
+            </div>
+        </li>
+
+        <li class="favourites__item">
+            <div class="favourites__item-container">
+            <div class="favourites__item-info">
+                <p class="favourites__item-number">3</p>
+
+                <img
+                src="../../images/pilot-3/icon.webp"
+                alt="pilot icon"
+                class="profile-image favourites__item-image"
+                >
+
+                <h3 class="favourites__item-name">Pilot 3</h3>
+            </div>
+
+            <a href="../pilots/pilot-3.html" class="favourites__item-button">View</a>
+            </div>
+        </li>
+
+        <li class="favourites__item">
+            <div class="favourites__item-container">
+            <div class="favourites__item-info">
+                <p class="favourites__item-number">4</p>
+
+                <img
+                src="../../images/pilot-4/icon.webp"
+                alt="pilot icon"
+                class="profile-image favourites__item-image"
+                >
+
+                <h3 class="favourites__item-name">Pilot 4</h3>
+            </div>
+
+            <a href="../pilots/pilot-4.html" class="favourites__item-button">View</a>
+            </div>
+        </li>
+
+        <li class="favourites__item">
+            <div class="favourites__item-container">
+            <div class="favourites__item-info">
+                <p class="favourites__item-number">5</p>
+
+                <img
+                src="../../images/pilot-5/icon.webp"
+                alt="pilot icon"
+                class="profile-image favourites__item-image"
+                >
+
+                <h3 class="favourites__item-name">Pilot 5</h3>
+            </div>
+
+            <a href="../pilots/pilot-5.html" class="favourites__item-button">View</a>
+            </div>
+        </li>
+
+        <li class="favourites__item">
+            <div class="favourites__item-container">
+            <div class="favourites__item-info">
+                <p class="favourites__item-number">6</p>
+
+                <img
+                src="../../images/pilot-4/icon.webp"
+                alt="pilot icon"
+                class="profile-image favourites__item-image"
+                >
+
+                <h3 class="favourites__item-name">Pilot 4</h3>
+            </div>
+
+            <a href="../pilots/pilot-4.html" class="favourites__item-button">View</a>
+            </div>
+        </li>
+        </ul>
+
+        <div class="paginate">
+        <img
+            src="{% static "images/icons/paginate-back.webp"%}"
+            alt="paginate back"
+            class="paginate-icon"
+            id="paginate-back"
+        >
+        
+        <p class="paginate-number" id="paginate-number"></p>
+
+        <img
+            src="{% static "images/icons/paginate-next.webp"%}"
+            alt="paginate back"
+            class="paginate-icon"
+            id="paginate-next"
+        >
+        </div>
+    </div>
+    </div>
+</main>
+{%endblock%}
+{%block page_script%}
+    <script type="text/javascript" src="{% static "scripts/favourites.js"%}"></script>
+{%endblock%}

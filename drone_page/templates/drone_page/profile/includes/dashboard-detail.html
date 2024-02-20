@@ -22,7 +22,8 @@
 
             <p class="dashboard__user-text">
             <span class="bold">Rating</span>
-            0
+            {% comment %} get from user - models {% endcomment %}
+            0 
             </p>
         </div>
 
@@ -35,6 +36,7 @@
 
             <p class="dashboard__user-text">
             <span class="bold">Jobs</span>
+            {% comment %} get from job models {% endcomment %}
             0
             </p>
         </div>
@@ -48,6 +50,7 @@
 
             <p class="dashboard__user-text">
             <span class="bold">Hires</span>
+            {% comment %} get from hires models {% endcomment %}
             0
             </p>
         </div>
@@ -73,6 +76,7 @@
         </div>
 
         <ul class="dashboard__job-list">
+        {% comment %} fill this item with model properties {% endcomment %}
         <li class="dashboard__item">
             <div class="job">
             <div class="job__controls">

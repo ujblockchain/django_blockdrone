@@ -18,6 +18,9 @@ class CustomUserAdmin(UserAdmin, admin.ModelAdmin):
         "email",
         "user_type",
         "tel_number",
+        "date_joined",
+        "last_login",
+        "is_superuser",
     ]
     list_display_links = [
         "id",

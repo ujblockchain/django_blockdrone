@@ -27,7 +27,12 @@ def browse_pilots(request):
 
     # browse_pilots page
     template_page = "drone_page/browse-pilots.html"
-    context = {}
+
+    # query users to get all pilots
+    pilots = User.objects.filter(user_type="Pilot")
+
+    
+    context = {"pilots": pilots}
 
     return render(request, template_page, context)
 
@@ -76,6 +81,7 @@ def user_login(request):
 
     return render(request, template_page, context)
 
+
 @login_required(login_url="login")
 def user_dashboard(request):
     template_page = "drone_page/profile/dashboard.html"
@@ -83,10 +89,28 @@ def user_dashboard(request):
     return render(request, template_page, context)
 
 
+def user_settings(request):
+    template_page = "drone_page/profile/account-settings.html"
+    context = {}
+    return render(request, template_page, context)
+
+
+def user_favourites(request):
+    template_page = "drone_page/profile/favourites.html"
+    context = {}
+    return render(request, template_page, context)
+
+
+def user_blocked(request):
+    template_page = "drone_page/profile/blocked.html"
+    context = {}
+    return render(request, template_page, context)
+
+
 def user_logout(request):
 
     auth.logout(request)
-    
+
     request.session.flush()
     "... request"
 
@@ -117,10 +141,11 @@ def sign_up(request):
 
                 # redirect to login page
                 return HttpResponsePermanentRedirect(reverse("login"))
-        # else:
-        #     print("not valid?")
-        #     messages.add_message(request, messages.ERROR, form.errors)
-        #     return HttpResponseRedirect(reverse('sign-up'))
+        else:
+            print("not valid?")
+            print(form.errors)
+            messages.add_message(request, messages.ERROR, form.errors)
+            return HttpResponseRedirect(reverse("sign-up"))
     else:
         # create form when someone lands on the page
         form = SignUpForm()

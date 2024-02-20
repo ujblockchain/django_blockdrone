@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{%load static%}
+
+
+{%block page_title%}
+    Account Settings | Block Drones
+{%endblock%}
+
+{%block page_body_styling%}
+    class="account-settings-body"
+{%endblock%}
+
+{%block page_header%}
+    {%include "drone_page/profile/includes/profile-nav.html"%}
+{%endblock%}
+
+{%block page_content%}
+    <main class="account-settings">
+      <div class="account-settings__wrapper">
+        <div class="account-settings__container">
+          <h2 class="account-settings__title">Profile Info:</h2>
+
+          <form class="account-settings__form">
+            <div class="account-settings__form-field">
+              <label for="first-name" class="account-settings__form-label">First Name <span class="red">*</span></label>
+
+              <input
+                type="text"
+                name="first-name"
+                id="first-name"
+                class="account-settings__form-input"
+              >
+            </div>
+  
+            <div class="account-settings__form-field">
+              <label for="last-name" class="account-settings__form-label">Last Name <span class="red">*</span></label>
+
+              <input
+                type="text"
+                name="last-name"
+                id="last-name"
+                class="account-settings__form-input"
+              >
+            </div>
+  
+            <div class="account-settings__form-field">
+              <label for="email" class="account-settings__form-label">Email <span class="red">*</span></label>
+
+              <input
+                type="email"
+                name="email"
+                id="email"
+                class="account-settings__form-input"
+              >
+            </div>
+  
+            <div class="account-settings__form-field">
+              <label for="profile-image" class="account-settings__form-label">Update your profile photo:</label>
+              
+              <div class="account-settings__form-avatar">
+                <img
+                  src=""
+                  alt="user image"
+                  id="account-image"
+                  class="profile-image account-settings__image"
+                >
+                
+                <div class="account-settings__form-field">
+                  <label for="profile-image" class="account-settings__form-label account-settings__form-label--small">Change:</label>
+
+                  <input
+                    type="file"
+                    id="avatar"
+                    name="avatar"
+                    accept="image/png, image/jpeg"
+                    class="account-setting__avatar"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="account-settings__form-field">
+              <p class="account-settings__form-title">Notifications</p>
+
+              <label for="general-updates" class="account-settings__form-label">
+                <input
+                  type="checkbox"
+                  name="general-updates"
+                  id="general-updates"
+                  class="account-settings__form-checkbox"
+                >
+                Subscribe to general updates
+              </label>
+              <p class="account-settings__form-subscript">Get product updates & general news</p>
+
+              <label for="feature-updates" class="account-settings__form-label">
+                <input
+                  type="checkbox"
+                  name="feature-updates"
+                  id="feature-updates"
+                  class="account-settings__form-checkbox"
+                >
+                Subscribe to feature updates
+              </label>
+              <p class="account-settings__form-subscript">Get feature updates</p>
+            </div>
+
+            <div class="account-settings__form-field">
+              <p class="account-settings__form-title">Payment Method</p>
+
+              <button class="account-settings__button">Add a card</button>
+            </div>
+          </form>
+
+          <div class="account-settings__bottom">
+            <button class="account-settings__button">Save</button>
+            <button class="account-settings__button account-settings__button--outlined">Change password</button>
+          </div>
+        </div>
+      </div>
+    </main>
+{%endblock%}
