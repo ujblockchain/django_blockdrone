@@ -8,7 +8,7 @@ from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate, login, logout
 
 
-from .forms import SignUpForm, LoginForm
+from .forms import SignUpForm, LoginForm, UpdateUserForm, ProfileForm
 
 User = get_user_model()
 # Create your views here.
@@ -31,7 +31,6 @@ def browse_pilots(request):
     # query users to get all pilots
     pilots = User.objects.filter(user_type="Pilot")
 
-    
     context = {"pilots": pilots}
 
     return render(request, template_page, context)
@@ -51,6 +50,7 @@ def job_request(request):
     return render(request, template_page, context)
 
 
+# USER Related Views
 def user_login(request):
     # login page
     template_page = "drone_page/accounts/login.html"
@@ -90,8 +90,49 @@ def user_dashboard(request):
 
 
 def user_settings(request):
+
     template_page = "drone_page/profile/account-settings.html"
-    context = {}
+    user_update_form = UpdateUserForm()
+
+    if request.method == "POST":
+        # create form with user input
+        user_update_form = UpdateUserForm(request.POST)
+
+        # check if the form is valid
+        if user_update_form.is_valid():
+            # get the validated form inputs
+            first_name_update = user_update_form.cleaned_data["first_name"]
+            last_name_update = user_update_form.cleaned_data["last_name"]
+            email_update = user_update_form.cleaned_data["email"]
+            tel_number_update = user_update_form.cleaned_data["tel_number"]
+
+            # update the user values
+            user = request.user
+            user.first_name = first_name_update
+            user.last_name = last_name_update
+            user.email = email_update
+            user.tel_number = tel_number_update
+            # save changes
+            user.save()
+
+            # redirect user to the same page
+            return HttpResponsePermanentRedirect(reverse("account-settings"))
+        else:
+            print(user_update_form.errors)
+
+    else:
+        # create the form when someone lands on the page
+        user_update_form = UpdateUserForm()
+        # create the profile update form when user lands on the page
+        user_profile_form = ProfileForm()
+
+    # create context
+    context = {
+        "user_username": request.user.username,
+        "user_update_form": user_update_form,
+        "user_profile_form": user_profile_form
+    }
+
     return render(request, template_page, context)
 
 
@@ -103,6 +144,12 @@ def user_favourites(request):
 
 def user_blocked(request):
     template_page = "drone_page/profile/blocked.html"
+    context = {}
+    return render(request, template_page, context)
+
+
+def user_features(request):
+    template_page = "drone_page/profile/features.html"
     context = {}
     return render(request, template_page, context)
 
@@ -142,9 +189,9 @@ def sign_up(request):
                 # redirect to login page
                 return HttpResponsePermanentRedirect(reverse("login"))
         else:
-            print("not valid?")
-            print(form.errors)
-            messages.add_message(request, messages.ERROR, form.errors)
+            # print("not valid?")
+            # print(form.errors)
+            # messages.add_message(request, messages.ERROR, form.errors)
             return HttpResponseRedirect(reverse("sign-up"))
     else:
         # create form when someone lands on the page
@@ -153,3 +200,9 @@ def sign_up(request):
     context = {"form": form}
 
     return render(request, template_page, context)
+
+
+# def user_account_settings(request):
+#     template_page = "drone_page/profile/account-settings.html"
+
+#     pass

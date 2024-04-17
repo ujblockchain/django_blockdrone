@@ -54,15 +54,15 @@
 
             <li class="dropdown__item">
               <div>
-                <a href="./blocked.html" class="dropdown__link">Blocked Pilots</a>
+                <a href="{% url "blocked" %}" class="dropdown__link">Blocked Pilots</a>
               </div>
             </li>
 
-            <li class="dropdown__item">
+            {% comment %} <li class="dropdown__item">
               <div>
                 <p class="dropdown__link">Features</p>
               </div>
-            </li>
+            </li> {% endcomment %}
           </ul>
 
           <div class="dropdown__content-bottom">
@@ -132,15 +132,15 @@
 
               <li class="dropdown__item">
                 <div>
-                  <a href="./blocked.html" class="dropdown__link">Blocked Pilots</a>
+                  <a href="{% url "blocked" %}" class="dropdown__link">Blocked Pilots</a>
                 </div>
               </li>
 
-              <li class="dropdown__item">
+              {% comment %} <li class="dropdown__item">
                 <div>
                   <p class="dropdown__link">Features</p>
                 </div>
-              </li>
+              </li> {% endcomment %}
             </ul>
 
             <div class="dropdown__content-bottom">
