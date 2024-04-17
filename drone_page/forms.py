@@ -76,14 +76,98 @@ class LoginForm(AuthenticationForm):
     )
 
 
+class UpdateUserForm(forms.ModelForm):
 
-# "password1": forms.PasswordInput(
-#                 attrs={"class": "form__field", "placeholder": "Password"}
-#             ),
-#             "password2": forms.PasswordInput(
-#                 attrs={
-#                     "id": "confirmPassword",
-#                     "class": "form__field",
-#                     "placeholder": "Password Confirmation",
-#                 }
-#             )
+    first_name = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "account-settings__form-input",
+                "placeholder": "First Name",
+            }
+        ),
+    )
+    last_name = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "account-settings__form-input",
+                "placeholder": "Last Name",
+            }
+        ),
+    )
+    email = forms.EmailField(
+        max_length=120,
+        required=True,
+        widget=forms.TextInput(
+            attrs={"class": "account-settings__form-input", "placeholder": "Email"}
+        ),
+    )
+
+    tel_number = forms.CharField(
+        max_length=100,
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "account-settings__form-input",
+                "placeholder": "Phone number",
+            }
+        ),
+    )
+
+    class Meta:
+        model = User
+        fields = [
+            "first_name",
+            "last_name",
+            "email",
+            "tel_number",
+        ]
+
+        # widgets = {
+        #     "first_name": forms.TextInput(
+        #         attrs={
+        #             "class": "account-settings__form-input",
+        #             "placeholder": "First Name",
+        #         }
+        #     ),
+        #     "last_name": forms.TextInput(
+        #         attrs={
+        #             "class": "account-settings__form-input",
+        #             "placeholder": "Last Name",
+        #         }
+        #     ),
+        #     "email": forms.TextInput(
+        #         attrs={"class": "account-settings__form-input", "placeholder": "Email"}
+        #     ),
+        #     "tel_number": forms.TextInput(
+        #         attrs={
+        #             "class": "account-settings__form-input",
+        #             "placeholder": "Phone number",
+        #         }
+        #     ),
+        # }
+
+
+class ProfileForm(forms.ModelForm):
+    profile = forms.CharField(
+        max_length=10000,
+        widget=forms.Textarea(
+            attrs={
+                "class": "account-settings__form-input",
+                "placeholder": "Last Name",
+            }
+        ),
+    )
+    location = forms.CharField(
+        blank=False,
+        max_length=150,
+        widget=forms.TextInput(
+            attrs={
+                "class": "account-settings__form-input",
+                "placeholder": "Last Name",
+            }
+        ),
+    )
