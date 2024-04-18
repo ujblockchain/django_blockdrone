@@ -81,21 +81,53 @@
         <div class="account-settings__container">
           <h2 class="account-settings__title">Location and About Info:</h2>
 
-          <form method ="POST" class="account-settings__form">
-            {%crsf_token%}
-
+          <form method ="POST" id="profileForm" data-cities-url="{%url "ajax_load_cities" %}" class="account-settings__form">
+            {% csrf_token %}
             <div class="account-settings__form-field">
               <label for="email" class="account-settings__form-label">About <span class="red">*</span></label>
 
-              {{"user_profile_form.profile"}}
+              {{user_profile_form.profile}}
             </div>
             <div></div>
-            <div class="account-settings__form-field">
-              <label for="email" class="account-settings__form-label">Location <span class="red">*</span></label>
 
-              {{"user_profile_form.location"}}
+            <div class="account-settings__form-field">
+              <label for="country" class="account-settings__form-label">Country <span class="red">*</span></label>
+
+              {{user_profile_form.country}}
             </div>
-            <div></div>
+
+            <div class="account-settings__form-field">
+              <label for="city" class="account-settings__form-label">City <span class="red">*</span></label>
+
+              {{user_profile_form.city}}
+            </div>
+            {% comment %} User Image {% endcomment %}
+            <div class="account-settings__form-field">
+              <label for="profile-image" class="account-settings__form-label">Update your profile photo:</label>
+              
+              <div class="account-settings__form-avatar">
+                <img
+                  src=""
+                  alt="user image"
+                  id="account-image"
+                  class="profile-image account-settings__image"
+                >
+                
+                <div class="account-settings__form-field">
+                  <label for="profile-image" class="account-settings__form-label account-settings__form-label--small">Change:</label>
+
+                  <input
+                    type="file"
+                    id="avatar"
+                    name="avatar"
+                    accept="image/png, image/jpeg"
+                    class="account-setting__avatar"
+                  />
+                </div>
+              </div>
+            </div>
+            {% comment %} End User Image {% endcomment %}
+            {% comment %} <div></div> {% endcomment %}
             <div class="account-settings__bottom">
               <button  type="submit" class="account-settings__button">Save</button>
             </div>

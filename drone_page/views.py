@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 
 
 from .forms import SignUpForm, LoginForm, UpdateUserForm, ProfileForm
-
+from .models import City
 User = get_user_model()
 # Create your views here.
 
@@ -92,33 +92,60 @@ def user_dashboard(request):
 def user_settings(request):
 
     template_page = "drone_page/profile/account-settings.html"
+    # create instance of form to update user information
     user_update_form = UpdateUserForm()
+    # create instance of form to update user profile infromation
+    user_profile_form = ProfileForm()
 
     if request.method == "POST":
-        # create form with user input
-        user_update_form = UpdateUserForm(request.POST)
+        # check to see which form was saved
 
-        # check if the form is valid
-        if user_update_form.is_valid():
-            # get the validated form inputs
-            first_name_update = user_update_form.cleaned_data["first_name"]
-            last_name_update = user_update_form.cleaned_data["last_name"]
-            email_update = user_update_form.cleaned_data["email"]
-            tel_number_update = user_update_form.cleaned_data["tel_number"]
+        if "first_name" in request.POST:
 
-            # update the user values
-            user = request.user
-            user.first_name = first_name_update
-            user.last_name = last_name_update
-            user.email = email_update
-            user.tel_number = tel_number_update
-            # save changes
-            user.save()
+            # create form with user input
+            user_update_form = UpdateUserForm(request.POST)
 
-            # redirect user to the same page
-            return HttpResponsePermanentRedirect(reverse("account-settings"))
-        else:
-            print(user_update_form.errors)
+            # check if the form is valid
+            if user_update_form.is_valid():
+                # get the validated form inputs
+                first_name_update = user_update_form.cleaned_data["first_name"]
+                last_name_update = user_update_form.cleaned_data["last_name"]
+                email_update = user_update_form.cleaned_data["email"]
+                tel_number_update = user_update_form.cleaned_data["tel_number"]
+
+                # update the user values
+                user = request.user
+                user.first_name = first_name_update
+                user.last_name = last_name_update
+                user.email = email_update
+                user.tel_number = tel_number_update
+                # save changes
+                user.save()
+
+                # redirect user to the same page
+                return HttpResponsePermanentRedirect(reverse("account-settings"))
+            else:
+                print(user_update_form.errors)
+
+        if "profile" in request.POST:
+            # create profile form with submitted information
+            print("profile table submitted")
+            user_profile_form_submitted = ProfileForm(request.POST)
+
+            # validate the inputs
+            if user_profile_form_submitted.is_valid():
+                # add user to the submitted form
+                user_profile_form_submitted_valid = user_profile_form_submitted.save(
+                    commit=False
+                )
+
+                user_profile_form_submitted_valid.user_id = request.user.id  # .username
+                # add to profile table
+                user_profile_form_submitted_valid.save()
+
+                return HttpResponsePermanentRedirect(reverse("account-settings"))
+            else:
+                print(user_profile_form_submitted.errors)
 
     else:
         # create the form when someone lands on the page
@@ -130,11 +157,16 @@ def user_settings(request):
     context = {
         "user_username": request.user.username,
         "user_update_form": user_update_form,
-        "user_profile_form": user_profile_form
+        "user_profile_form": user_profile_form,
     }
 
     return render(request, template_page, context)
 
+def load_cities(request):
+    country_id = request.GET.get("country_id")
+    cities = City.objects.filter(country_id=country_id)
+    context = {"cities": cities}
+    return render(request,"profile/city_dropdown_list_options.html", context)
 
 def user_favourites(request):
     template_page = "drone_page/profile/favourites.html"

@@ -4,11 +4,33 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
+class Country(models.Model):
+    name = models.CharField(max_length=40)
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class City(models.Model):
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    name = models.CharField(max_length=40)
+
+    def __str__(self) -> str:
+        return self.name
+
+
 # create profile mode
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.PROTECT, primary_key=True)
     profile = models.TextField(blank=True)
-    location = models.CharField(blank=False, max_length=150)
+    country = models.ForeignKey(
+        Country, on_delete=models.SET_NULL, blank=True, null=True
+    )
+    city = models.ForeignKey(City, on_delete=models.SET_NULL, blank=True, null=True)
+    profile_image = models.ImageField(default="default.jpg", upload_to="profile_pics")
+
+    def __str__(self):
+        return f"{self.user.username} - {self.Country} - {self.City}"
 
 
 # # create pilot model

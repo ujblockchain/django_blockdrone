@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 
 from users.forms import CustomUserChangeForm
+from .models import Profile, City
 
 # custom user
 User = get_user_model()
@@ -126,48 +127,50 @@ class UpdateUserForm(forms.ModelForm):
             "tel_number",
         ]
 
-        # widgets = {
-        #     "first_name": forms.TextInput(
-        #         attrs={
-        #             "class": "account-settings__form-input",
-        #             "placeholder": "First Name",
-        #         }
-        #     ),
-        #     "last_name": forms.TextInput(
-        #         attrs={
-        #             "class": "account-settings__form-input",
-        #             "placeholder": "Last Name",
-        #         }
-        #     ),
-        #     "email": forms.TextInput(
-        #         attrs={"class": "account-settings__form-input", "placeholder": "Email"}
-        #     ),
-        #     "tel_number": forms.TextInput(
-        #         attrs={
-        #             "class": "account-settings__form-input",
-        #             "placeholder": "Phone number",
-        #         }
-        #     ),
-        # }
-
 
 class ProfileForm(forms.ModelForm):
+
     profile = forms.CharField(
         max_length=10000,
         widget=forms.Textarea(
             attrs={
                 "class": "account-settings__form-input",
-                "placeholder": "Last Name",
+                "placeholder": "About you",
             }
         ),
     )
-    location = forms.CharField(
-        blank=False,
+    country = forms.CharField(
         max_length=150,
-        widget=forms.TextInput(
+        widget=forms.Select(
             attrs={
                 "class": "account-settings__form-input",
-                "placeholder": "Last Name",
+                "placeholder": "Select Country",
             }
         ),
     )
+    city = forms.CharField(
+        max_length=150,
+        widget=forms.Select(
+            attrs={
+                "class": "account-settings__form-input",
+                "placeholder": "Select City",
+            }
+        ),
+    )
+
+    class Meta:
+        model = Profile
+        fields = ["profile", "country", "city", "profile_image"]
+
+        def __init__(self, *args, **kwargs) -> None:
+            super().__init__(*args, **kwargs)
+            self.fields["city"].queryset = City.objects.none()
+
+            if "country" in self.data:
+                try:
+                    country_id = int(self.data.get("country"))
+                    self.fields["city"].queryset = City.objects.filter(country_id=country_id).order_by("name")
+                except (ValueError, TypeError):
+                    pass 
+            elif self.instance.pk:
+                self.fields["city"].queryset = self.instance.country.city_set.order_by("name")
