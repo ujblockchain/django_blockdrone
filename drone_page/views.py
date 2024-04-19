@@ -86,7 +86,9 @@ def user_login(request):
 @login_required(login_url="login")
 def user_dashboard(request):
     template_page = "drone_page/profile/dashboard.html"
-    context = {}
+    # get the user
+    user_logged_in = request.user
+    context = {"user_logged_in": user_logged_in}
     return render(request, template_page, context)
 
 

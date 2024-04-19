@@ -3,13 +3,23 @@
     <div class="dashboard__wrapper">
     <div class="dashboard__user-info">
         <div class="dashboard__user-top">
+        {%if user_logged_in.profile.profile_image%}
         <img
-            src=""
-            alt="user image"
+            src="{{user_logged_in.profile.profile_image.url}}"
+            alt="{{user_logged_in.first_name}}'s profile image"
+            class="profile-image dashboard__user-image"
+        >
+        {%else%}
+        <img
+            src="{% static "media/profile_pics/default.png" %}"
+            alt="{{user_logged_in.first_name}}'s profile image"
             class="profile-image dashboard__user-image"
         >
 
-        <p id="user-name"></p>
+        
+
+        {%endif%}
+        <p id="user-name">{{user_logged_in.first_name}}</p>
         </div>
 
         <div class="dashboard__user-bottom">

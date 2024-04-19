@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+
 import os
 from decouple import config
 
@@ -139,6 +140,11 @@ AUTH_USER_MODEL = "users.CustomUser"
 STATIC_URL = "/static/"
 
 STATICFILES_DIRS = [PROJECT_DIR / "static/"]
+
+MEDIA_ROOT = os.path.join(
+    BASE_DIR, "media"
+)  # directory where uploaded media will be saved.
+MEDIA_URL = "/media/"  # public URL at the browser
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

@@ -27,7 +27,9 @@ class Profile(models.Model):
         Country, on_delete=models.SET_NULL, blank=True, null=True
     )
     city = models.ForeignKey(City, on_delete=models.SET_NULL, blank=True, null=True)
-    # profile_image = models.ImageField(default="default.jpg", upload_to="profile_pics")
+    profile_image = models.ImageField(
+        null=True, blank=True, default="default.jpg", upload_to="profile_pics"
+    )
 
     def __str__(self):
         return f"{self.user.username} - {self.country} - {self.city}"
