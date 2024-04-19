@@ -130,47 +130,62 @@ class UpdateUserForm(forms.ModelForm):
 
 class ProfileForm(forms.ModelForm):
 
-    profile = forms.CharField(
-        max_length=10000,
-        widget=forms.Textarea(
-            attrs={
-                "class": "account-settings__form-input",
-                "placeholder": "About you",
-            }
-        ),
-    )
-    country = forms.CharField(
-        max_length=150,
-        widget=forms.Select(
-            attrs={
-                "class": "account-settings__form-input",
-                "placeholder": "Select Country",
-            }
-        ),
-    )
-    city = forms.CharField(
-        max_length=150,
-        widget=forms.Select(
-            attrs={
-                "class": "account-settings__form-input",
-                "placeholder": "Select City",
-            }
-        ),
-    )
+    # profile = forms.CharField()
+    # country = forms.ChoiceField()
+    # city = forms.CharField(
+    #     max_length=150,
+    #     widget=forms.Select(
+    #         attrs={
+    #             "class": "account-settings__form-input",
+    #             "placeholder": "Select City",
+    #         }
+    #     ),
+    # )
 
     class Meta:
         model = Profile
-        fields = ["profile", "country", "city", "profile_image"]
+        fields = ["profile", "country", "city"]  # , "profile_image"]
 
-        def __init__(self, *args, **kwargs) -> None:
+        widgets = {
+            "profile": forms.Textarea(
+                attrs={
+                    "class": "account-settings__form-input",
+                    "placeholder": "Tell us about yourself...",
+                    "required": True,
+                }
+            ),
+            "country": forms.Select(
+                attrs={
+                    "class": "account-settings__form-input",
+                    "placeholder": "Country",
+                    "required": True,
+                }
+            ),
+            "city": forms.Select(
+                attrs={
+                    "class": "account-settings__form-input",
+                    "placeholder": "Username",
+                    "required": True,
+                }
+            ),
+        }
+
+        def __init__(self, *args, **kwargs):
             super().__init__(*args, **kwargs)
             self.fields["city"].queryset = City.objects.none()
+
+            for key in ["profile", "country", "city"]:
+                self.fields[key].required = True
 
             if "country" in self.data:
                 try:
                     country_id = int(self.data.get("country"))
-                    self.fields["city"].queryset = City.objects.filter(country_id=country_id).order_by("name")
+                    self.fields["city"].queryset = City.objects.filter(
+                        country_id=country_id
+                    ).order_by("name")
                 except (ValueError, TypeError):
-                    pass 
+                    pass
             elif self.instance.pk:
-                self.fields["city"].queryset = self.instance.country.city_set.order_by("name")
+                self.fields["city"].queryset = self.instance.country.city_set.order_by(
+                    "name"
+                )

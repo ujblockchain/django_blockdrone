@@ -81,8 +81,9 @@
         <div class="account-settings__container">
           <h2 class="account-settings__title">Location and About Info:</h2>
 
-          <form method ="POST" id="profileForm" data-cities-url="{%url "ajax_load_cities" %}" class="account-settings__form">
+          <form method ="POST" id="profileForm" data-cities-url="{% url "ajax_load_cities" %}" class="account-settings__form">
             {% csrf_token %}
+            {% comment %} {{user_profile_form.as_p}} {% endcomment %}
             <div class="account-settings__form-field">
               <label for="email" class="account-settings__form-label">About <span class="red">*</span></label>
 
@@ -102,7 +103,7 @@
               {{user_profile_form.city}}
             </div>
             {% comment %} User Image {% endcomment %}
-            <div class="account-settings__form-field">
+            {% comment %} <div class="account-settings__form-field">
               <label for="profile-image" class="account-settings__form-label">Update your profile photo:</label>
               
               <div class="account-settings__form-avatar">
@@ -125,11 +126,11 @@
                   />
                 </div>
               </div>
-            </div>
+            </div> {% endcomment %}
             {% comment %} End User Image {% endcomment %}
             {% comment %} <div></div> {% endcomment %}
             <div class="account-settings__bottom">
-              <button  type="submit" class="account-settings__button">Save</button>
+              <button  type="submit" value="submit" class="account-settings__button">Save</button>
             </div>
           </form>
 
@@ -138,4 +139,23 @@
       </div>
       {% comment %} End User Profile and Location {% endcomment %}
     </main>
+{% comment %} <script>
+$("#id_country").change(function(){
+    const url = $("#profileForm").attr("data-cities-url"); // get the url of the 'load_cities' view
+    const countryId = $(this).val(); // get the selected country ID from the HTML input
+    console.log(10);
+    $.ajax({    // initialise an AJAX request
+        url: url, // set the url of the request ()
+        data: {
+            "country_id": countryId // add the country id to the GET parameters
+        },
+        success: function (data){ // data is the return of the load_cities view function
+            $("#id_city").html(data);// replace the contents of the city input with the data that came from the server 
+
+        }
+
+
+    });
+});
+</script> {% endcomment %}
 {%endblock%}

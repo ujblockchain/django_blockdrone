@@ -10,6 +10,7 @@ from django.contrib.auth import authenticate, login, logout
 
 from .forms import SignUpForm, LoginForm, UpdateUserForm, ProfileForm
 from .models import City
+
 User = get_user_model()
 # Create your views here.
 
@@ -138,7 +139,6 @@ def user_settings(request):
                 user_profile_form_submitted_valid = user_profile_form_submitted.save(
                     commit=False
                 )
-
                 user_profile_form_submitted_valid.user_id = request.user.id  # .username
                 # add to profile table
                 user_profile_form_submitted_valid.save()
@@ -162,11 +162,15 @@ def user_settings(request):
 
     return render(request, template_page, context)
 
+
 def load_cities(request):
     country_id = request.GET.get("country_id")
     cities = City.objects.filter(country_id=country_id)
     context = {"cities": cities}
-    return render(request,"profile/city_dropdown_list_options.html", context)
+    return render(
+        request, "drone_page/profile/city_dropdown_list_options.html", context
+    )
+
 
 def user_favourites(request):
     template_page = "drone_page/profile/favourites.html"

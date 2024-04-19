@@ -27,10 +27,10 @@ class Profile(models.Model):
         Country, on_delete=models.SET_NULL, blank=True, null=True
     )
     city = models.ForeignKey(City, on_delete=models.SET_NULL, blank=True, null=True)
-    profile_image = models.ImageField(default="default.jpg", upload_to="profile_pics")
+    # profile_image = models.ImageField(default="default.jpg", upload_to="profile_pics")
 
     def __str__(self):
-        return f"{self.user.username} - {self.Country} - {self.City}"
+        return f"{self.user.username} - {self.country} - {self.city}"
 
 
 # # create pilot model
