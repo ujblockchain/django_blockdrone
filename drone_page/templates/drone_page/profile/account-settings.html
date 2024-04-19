@@ -19,7 +19,7 @@
       {% comment %} Main User Table {% endcomment %}
       <div class="account-settings__wrapper">
         <div class="account-settings__container">
-          <h2 class="account-settings__title">Profile Info {{user_username}}:</h2>
+          <h2 class="account-settings__title">Profile Info : <strong>{{user_logged_in.first_name}}</strong></h2>
 
           <form method="POST" class="account-settings__form">
             {% csrf_token %}
@@ -81,9 +81,8 @@
         <div class="account-settings__container">
           <h2 class="account-settings__title">Location and About Info:</h2>
 
-          <form method ="POST" id="profileForm" data-cities-url="{% url "ajax_load_cities" %}" class="account-settings__form">
+          <form method ="POST" id="profileForm" data-cities-url="{% url "ajax_load_cities" %}" class="account-settings__form" enctype="multipart/form-data">
             {% csrf_token %}
-            {% comment %} {{user_profile_form.as_p}} {% endcomment %}
             <div class="account-settings__form-field">
               <label for="email" class="account-settings__form-label">About <span class="red">*</span></label>
 
@@ -103,12 +102,12 @@
               {{user_profile_form.city}}
             </div>
             {% comment %} User Image {% endcomment %}
-            {% comment %} <div class="account-settings__form-field">
+            <div class="account-settings__form-field">
               <label for="profile-image" class="account-settings__form-label">Update your profile photo:</label>
               
               <div class="account-settings__form-avatar">
                 <img
-                  src=""
+                  src="{{user_logged_in.profile.profile_image.url}}"
                   alt="user image"
                   id="account-image"
                   class="profile-image account-settings__image"
@@ -117,16 +116,18 @@
                 <div class="account-settings__form-field">
                   <label for="profile-image" class="account-settings__form-label account-settings__form-label--small">Change:</label>
 
-                  <input
+                  {{user_profile_form.profile_image}}
+
+                  {% comment %} <input
                     type="file"
                     id="avatar"
                     name="avatar"
                     accept="image/png, image/jpeg"
                     class="account-setting__avatar"
-                  />
+                  /> {% endcomment %}
                 </div>
               </div>
-            </div> {% endcomment %}
+            </div>
             {% comment %} End User Image {% endcomment %}
             {% comment %} <div></div> {% endcomment %}
             <div class="account-settings__bottom">
@@ -139,23 +140,4 @@
       </div>
       {% comment %} End User Profile and Location {% endcomment %}
     </main>
-{% comment %} <script>
-$("#id_country").change(function(){
-    const url = $("#profileForm").attr("data-cities-url"); // get the url of the 'load_cities' view
-    const countryId = $(this).val(); // get the selected country ID from the HTML input
-    console.log(10);
-    $.ajax({    // initialise an AJAX request
-        url: url, // set the url of the request ()
-        data: {
-            "country_id": countryId // add the country id to the GET parameters
-        },
-        success: function (data){ // data is the return of the load_cities view function
-            $("#id_city").html(data);// replace the contents of the city input with the data that came from the server 
-
-        }
-
-
-    });
-});
-</script> {% endcomment %}
 {%endblock%}

@@ -95,9 +95,12 @@ def user_dashboard(request):
 def user_settings(request):
 
     template_page = "drone_page/profile/account-settings.html"
+    # get the user who is logged in
+    user_logged_in = User.objects.get(id=request.user.id)
+
     # create instance of form to update user information
     user_update_form = UpdateUserForm()
-    # create instance of form to update user profile infromation
+    # create instance of form to update user profile information
     user_profile_form = ProfileForm()
 
     if request.method == "POST":
@@ -133,7 +136,7 @@ def user_settings(request):
         if "profile" in request.POST:
             # create profile form with submitted information
             print("profile table submitted")
-            user_profile_form_submitted = ProfileForm(request.POST)
+            user_profile_form_submitted = ProfileForm(request.POST, request.FILES)
 
             # validate the inputs
             if user_profile_form_submitted.is_valid():
@@ -157,7 +160,7 @@ def user_settings(request):
 
     # create context
     context = {
-        "user_username": request.user.username,
+        "user_logged_in": user_logged_in,
         "user_update_form": user_update_form,
         "user_profile_form": user_profile_form,
     }
