@@ -93,7 +93,7 @@ def user_dashboard(request):
 
 
 def user_settings(request):
-
+    # define template page to be loaded
     template_page = "drone_page/profile/account-settings.html"
     # get the user who is logged in
     user_logged_in = User.objects.get(id=request.user.id)
@@ -136,6 +136,10 @@ def user_settings(request):
         if "profile" in request.POST:
             # create profile form with submitted information
             print("profile table submitted")
+            if len(request.FILES.keys()) < 1:
+                request.FILES["profile_image"] = request.user.profile.profile_image
+
+            # create a profile form with the saved correct profile image
             user_profile_form_submitted = ProfileForm(request.POST, request.FILES)
 
             # validate the inputs
@@ -145,6 +149,7 @@ def user_settings(request):
                     commit=False
                 )
                 user_profile_form_submitted_valid.user_id = request.user.id  # .username
+
                 # add to profile table
                 user_profile_form_submitted_valid.save()
 
