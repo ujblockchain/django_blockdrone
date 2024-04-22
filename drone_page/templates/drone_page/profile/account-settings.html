@@ -107,17 +107,19 @@
               
               <div class="account-settings__form-avatar">
                 <img
+                {% if user_logged_in.profile.profile_image %}
                   src="{{user_logged_in.profile.profile_image.url}}"
+                {% else %}
+                src="{% static "drone_page/images/default.png" %}"
+                {% endif %}
+                
                   alt="user image"
                   id="account-image"
                   class="profile-image account-settings__image"
                 >
-                
                 <div class="account-settings__form-field">
                   <label for="profile-image" class="account-settings__form-label account-settings__form-label--small">Change:</label>
-
                   {{user_profile_form.profile_image}}
-
                   {% comment %} <input
                     type="file"
                     id="avatar"
@@ -129,6 +131,7 @@
               </div>
             </div>
             {% comment %} End User Image {% endcomment %}
+
             {% comment %} <div></div> {% endcomment %}
             <div class="account-settings__bottom">
               <button  type="submit" value="submit" class="account-settings__button">Save</button>

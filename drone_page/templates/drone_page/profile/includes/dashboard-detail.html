@@ -11,13 +11,10 @@
         >
         {%else%}
         <img
-            src="{% static "media/profile_pics/default.png" %}"
+            src="{% static "drone_page/images/default.png" %}"
             alt="{{user_logged_in.first_name}}'s profile image"
             class="profile-image dashboard__user-image"
         >
-
-        
-
         {%endif%}
         <p id="user-name">{{user_logged_in.first_name}}</p>
         </div>

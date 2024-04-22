@@ -19,8 +19,11 @@
 
       <div class="dropdown" id="dropdown">
         <div class="dropdown__background" id="dropdown-background"></div>
-
-        <img src="" alt="user icon" class="profile-image dropdown__image-small" id="dropdown-button">
+        {% if user_logged_in.profile.profile_image %}
+        <img src="{{user_logged_in.profile.profile_image.url}}" alt="user profile" class="profile-image dropdown__image-small" id="dropdown-button">
+        {%else%}
+        <img src="{% static "drone_page/images/default.png"%}" alt="user  default icon" class="profile-image dropdown__image-small" id="dropdown-button">
+        {%endif%}
 
         <div class="dropdown__content" id="dropdown-content">
           <div class="dropdown__content-top">
