@@ -17,7 +17,7 @@
         {% comment %} get from model {% endcomment %}
         <p class="pilot__middle-item"><strong>{{pilot.profile.city}}, {{pilot.profile.country}}</strong></p>
         {% comment %} get from model {% endcomment %}
-        <p class="pilot__middle-item"><strong>R1000/hour</strong> avg. rate</p>
+        <p class="pilot__middle-item"><strong>R{{pilot.profile.hourly_rate}}/hour</strong> rate</p>
       </div>
       {% comment %} get from model {% endcomment %}
       <div class="pilot__bottom">
@@ -26,7 +26,7 @@
 
       <div class="pilot__container">
         <a
-          href="./pilots/pilot-1.html"
+          href="{% url "pilot-detail" slug="test"%}"
           class="button pilot__button button--work"
           target="_blank"
         >

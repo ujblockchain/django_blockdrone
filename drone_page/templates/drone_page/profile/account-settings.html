@@ -19,7 +19,7 @@
       {% comment %} Main User Table {% endcomment %}
       <div class="account-settings__wrapper">
         <div class="account-settings__container">
-          <h2 class="account-settings__title">Profile Info : <strong>{{user_logged_in.first_name}}</strong></h2>
+          <h2 class="account-settings__title">Profile Info : <strong>{{user_logged_in.first_name}} {{user_logged_in.usertype}}</strong></h2>
 
           <form method="POST" class="account-settings__form">
             {% csrf_token %}
@@ -101,6 +101,12 @@
 
               {{user_profile_form.city}}
             </div>
+            {%if user_logged_in.user_type == "Pilot"%}
+            <div class="account-settings__form-field">
+              <label for="hourly_rate" class="account-settings__form-label">Hourly Rate (R/hr)</label>
+              {{user_profile_form.hourly_rate}} 
+            </div>
+            {%endif%}
             {% comment %} User Image {% endcomment %}
             <div class="account-settings__form-field">
               <label for="profile-image" class="account-settings__form-label">Update your profile photo:</label>

@@ -13,6 +13,7 @@ class Country(models.Model):
 
 class City(models.Model):
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
+
     name = models.CharField(max_length=40)
 
     def __str__(self) -> str:
@@ -27,6 +28,7 @@ class Profile(models.Model):
         Country, on_delete=models.SET_NULL, blank=True, null=True
     )
     city = models.ForeignKey(City, on_delete=models.SET_NULL, blank=True, null=True)
+    hourly_rate = models.IntegerField(blank=True, null=True, default=0)
     profile_image = models.ImageField(null=True, blank=True, upload_to="profile_pics")
 
     def __str__(self):

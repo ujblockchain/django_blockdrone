@@ -37,6 +37,18 @@ def browse_pilots(request):
     return render(request, template_page, context)
 
 
+def pilot_detail(request, slug):
+    # set template for pilot detail
+    template_page = "drone_page/pilot-detail.html"
+
+    # slug: first_name-userid-username
+
+    # template context
+    context = {}
+
+    return render(request, template_page, context)
+
+
 def job_review(request):
     template_page = "drone_page/job-review.html"
     context = {}
@@ -97,6 +109,7 @@ def user_settings(request):
     template_page = "drone_page/profile/account-settings.html"
     # get the user who is logged in
     user_logged_in = User.objects.get(id=request.user.id)
+    print(user_logged_in.user_type)
 
     # create instance of form to update user information
     user_update_form = UpdateUserForm()

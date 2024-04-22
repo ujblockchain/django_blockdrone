@@ -144,7 +144,7 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ["profile", "country", "city", "profile_image"]
+        fields = ["profile", "country", "city", "hourly_rate", "profile_image"]
 
         widgets = {
             "profile": forms.Textarea(
@@ -166,6 +166,12 @@ class ProfileForm(forms.ModelForm):
                     "class": "account-settings__form-input",
                     "placeholder": "Username",
                     "required": True,
+                }
+            ),
+            "hourly_rate": forms.NumberInput(
+                attrs={
+                    "class": "account-settings__form-input",
+                    "placeholder": "Enter Hourly Rate",
                 }
             ),
             "profile_image": forms.FileInput(
