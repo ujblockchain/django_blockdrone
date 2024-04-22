@@ -135,8 +135,10 @@ def user_settings(request):
 
         if "profile" in request.POST:
             # create profile form with submitted information
-            print("profile table submitted")
+
+            # check if the user uploaded a new profile image
             if len(request.FILES.keys()) < 1:
+                # no image uploaded, therefore use the same image on the database - not ideal because I am making a transaction with data already on the database
                 request.FILES["profile_image"] = request.user.profile.profile_image
 
             # create a profile form with the saved correct profile image

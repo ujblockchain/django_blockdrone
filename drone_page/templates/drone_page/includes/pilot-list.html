@@ -8,20 +8,20 @@
           class="pilot__icon"
         >
         {% comment %} get from model {% endcomment %}
-        <p class="pilot__name">Pilot 1</p>
+        <p class="pilot__name">{{pilot.first_name}} {{pilot.last_name}}</p>
         {% comment %} get from model {% endcomment %}
         <p class="pilot__booked">(38 times booked)</p>
       </div>
 
       <div class="pilot__middle">
         {% comment %} get from model {% endcomment %}
-        <p class="pilot__middle-item"><strong>Durban, KZN</strong></p>
+        <p class="pilot__middle-item"><strong>{{pilot.profile.city}}, {{pilot.profile.country}}</strong></p>
         {% comment %} get from model {% endcomment %}
         <p class="pilot__middle-item"><strong>R1000/hour</strong> avg. rate</p>
       </div>
       {% comment %} get from model {% endcomment %}
       <div class="pilot__bottom">
-        Experienced drone pilot with a keen eye for stunning visuals. Specializing in real estate and event coverage. Contact for professional aerial photography and videography.
+        <p> {{pilot.profile.profile}}</p>
       </div>
 
       <div class="pilot__container">

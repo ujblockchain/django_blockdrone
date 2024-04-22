@@ -75,7 +75,7 @@
       </div>
 
       <img
-        src="../../images/icons/menu-black.webp"
+        src="{% static "images/icons/menu-black.webp"%}"
         alt="menu icon"
         class="nav__menu"
         id="menu-toggle"
@@ -100,16 +100,22 @@
 
         <div class="dropdown dropdown--menu" id="dropdown-menu">
           <div class="dropdown__background" id="dropdown-background-menu"></div>
-
-          <img src="../images/no-icon.webp" alt="user icon" class="profile-image dropdown__image-small" id="dropdown-button-menu">
+          {% if user_logged_in.profile.profile_image%}
+          
+          <img src="{{user_logged_in.profile.profile_image.url}}" alt="user icon" class="profile-image dropdown__image-small" id="dropdown-button-menu">
+          {%else%}
+          <img src="{% static "drone_page/images/default.png" %}" alt="user icon" class="profile-image dropdown__image-small" id="dropdown-button-menu">
+          {%endif%}
 
           <div class="dropdown__content" id="dropdown-content-menu">
             <div class="dropdown__content-top">
+              {%if user_logged_in.profile.profile_image%}
               <img
-                src="../images/no-icon.webp"
+                src="{{user_logged_in.profile.profile_image.url}}"
                 alt="icon"
                 class="profile-image dropdown__image"
               >
+              {%endif%}
 
               <p id="dropdown-user-name-menu"></p>
             </div>

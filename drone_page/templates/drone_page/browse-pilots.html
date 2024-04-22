@@ -26,7 +26,9 @@
         <div class="pilots-list">
           <div class"pilots-list__wrapper">
             <ul class ="pilots-list__list">
+              {%for pilot in pilots %}
               {%include "drone_page/includes/pilot-list.html"%}
+              {% endfor %}
             </ul>
           </div>
         </div>
