@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -30,6 +31,9 @@ class Profile(models.Model):
     city = models.ForeignKey(City, on_delete=models.SET_NULL, blank=True, null=True)
     hourly_rate = models.IntegerField(blank=True, null=True, default=0)
     profile_image = models.ImageField(null=True, blank=True, upload_to="profile_pics")
+
+    def get_absolute_url(self):
+        return reverse("pilot-detail", args=[f"{self.user.username}"])
 
     def __str__(self):
         return f"{self.user.username} - {self.country} - {self.city}"
