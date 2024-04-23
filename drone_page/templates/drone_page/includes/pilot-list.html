@@ -26,11 +26,11 @@
 
       <div class="pilot__container">
         <a
-          href="{% url "pilot-detail" slug="test"%}"
+          href="{{pilot.profile.get_absolute_url}}"
           class="button pilot__button button--work"
           target="_blank"
         >
-          View Work
+          View Work 
         </a>
       </div>
     </div>

@@ -22,21 +22,21 @@ Pilot X Page
             <div class="pilot-info__top-name">
               <!-- dynamic content -->
               <img
-                src="../../images/pilot-1/icon.webp" 
+                src="{{pilot.profile.profile_image.url}}" 
                 alt="icon"
                 class="pilot-info__icon"
               >
               <!-- dynamic -->
-              <h1 class="pilot-info__name">Pilot 1</h1>
+              <h1 class="pilot-info__name">{{pilot.first_name}}</h1>
             </div>
 
-            <a href="../job-request.html" class="button pilot-info__button">Request A Quote</a>
+            <a href="{% url "job-request"%}" class="button pilot-info__button">Request A Quote</a>
           </div>
 
           <div class="pilot-info__middle">
             <!-- dynamic -->
             <p>
-              Experienced drone pilot with a keen eye for stunning visuals. Specializing in real estate and event coverage. Contact for professional aerial photography and videography.
+              {{pilot.profile.profile}}
             </p>
 
             <div class="pilot-info__middle-container">
@@ -49,21 +49,21 @@ Pilot X Page
           <div class="pilot-info__bottom">
             <div class="pilot-info__bottom-item">
               <img
-                src="../../images/icons/rand.webp"
+                src="{% static "images/icons/rand.webp"%}"
                 alt="rand symbol"
                 class="pilot-info__bottom-icon"
               >
 
               <div>
-                <p class="pilot-info__bottom-title">Average Rate</p>
+                <p class="pilot-info__bottom-title">Hourly Rate</p>
 
-                <p>1000/hr</p>
+                <p>{{pilot.profile.hourly_rate}}/hr</p>
               </div>
             </div>
 
             <div class="pilot-info__bottom-item">
               <img
-                src="../../images/icons/pin.webp"
+                src="{% static "images/icons/pin.webp"%}"
                 alt="pin icon"
                 class="pilot-info__bottom-icon"
               >
@@ -71,13 +71,13 @@ Pilot X Page
               <div>
                 <p class="pilot-info__bottom-title">Location</p>
 
-                <p>Durban, KZN</p>
+                <p>{{pilot.profile.city}}, {{pilot.profile.country}}</p>
               </div>
             </div>
 
             <div class="pilot-info__bottom-item">
               <img
-                src="../../images/icons/count.webp"
+                src="{% static "images/icons/count.webp"%}"
                 alt="pin icon"
                 class="pilot-info__bottom-icon"
               >

@@ -33,6 +33,9 @@ class Profile(models.Model):
     profile_image = models.ImageField(null=True, blank=True, upload_to="profile_pics")
 
     def get_absolute_url(self):
+        """
+        This method allows for quick retrieval of each profile object's canonical url path.
+        """
         return reverse("pilot-detail", args=[f"{self.user.username}"])
 
     def __str__(self):

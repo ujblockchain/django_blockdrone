@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
 from django.urls import reverse
 from django.contrib import messages
@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 
 
 from .forms import SignUpForm, LoginForm, UpdateUserForm, ProfileForm
-from .models import City
+from .models import City, Profile
 
 User = get_user_model()
 # Create your views here.
@@ -38,13 +38,16 @@ def browse_pilots(request):
 
 
 def pilot_detail(request, slug):
+    # slug format - username
+    pilot = get_object_or_404(User, username=slug)
+
     # set template for pilot detail
     template_page = "drone_page/pilot-detail.html"
 
     # slug: first_name-userid-username
 
     # template context
-    context = {}
+    context = {"pilot": pilot}
 
     return render(request, template_page, context)
 
