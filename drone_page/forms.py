@@ -3,7 +3,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 
 from users.forms import CustomUserChangeForm
-from .models import Profile, City
+from .models import Profile, City, JobRequestModel
 
 # custom user
 User = get_user_model()
@@ -202,3 +202,90 @@ class ProfileForm(forms.ModelForm):
                 self.fields["city"].queryset = self.instance.country.city_set.order_by(
                     "name"
                 )
+
+
+class JobRequestsForm(forms.ModelForm):
+
+    class Meta:
+        model = JobRequestModel
+        exclude = ("request_id","request_create_date","request_update_date",)
+
+        widgets = {
+            "request_name": forms.TextInput(
+                attrs={
+                    "class": "form__field",
+                    "placeholder": "Organisation Name",
+                    "required": True,
+                }
+            ),
+            "request_email": forms.EmailInput(
+                attrs={
+                    "class": "form__field",
+                    "placeholder": "Organisation Email",
+                    "required": True,
+                }
+            ),
+            "request_tel": forms.TextInput(
+                attrs={
+                    "class": "form__field",
+                    "placeholder": "Organisation Phone Number",
+                    "required": True,
+                }
+            ),
+            "request_pilot": forms.Select(
+                attrs={
+                    "class": "form__field",
+                    "placeholder": "Select Pilot",
+                    "required": True,
+                }
+            ),
+            "request_job_type": forms.Select(
+                attrs={
+                    "class": "form__field",
+                    "empty_label": "Select Job Type",
+                    "required": True,
+                }
+            ),
+            "request_country": forms.Select(
+                attrs={
+                    "class": "form__field",
+                    "placeholder": "Organisation Country",
+                    "required": True,
+                }
+            ),
+            "request_city": forms.Select(
+                attrs={
+                    "class": "form__field",
+                    "placeholder": "Organisation City",
+                    "required": True,
+                }
+            ),
+            "request_extra_information": forms.Textarea(
+                attrs={
+                    "class": "form__field",
+                    "placeholder": "Any extra information you need to tell us?",
+                    "required": True,
+                }
+            ),
+        }
+
+        def __init__(self, *args, **kwargs) -> None:
+            super().__init__(*args, **kwargs)
+            self.fields["city"].queryset = City.objects.none()
+
+            if "country" in self.data:
+                try:
+                    country_id = int(self.data.get("country"))
+                    self.fields["city"].queryset = City.objects.filter(
+                        country_id=country_id
+                    ).order_by("name")
+                except (ValueError, TypeError):
+                    pass
+            elif self.instance.pk:
+                self.fields["city"].queryset = self.instance.country.city_set.order_by(
+                    "name"
+                )
+            # filter the request_pilot dropdown to only show pilots
+            self.fields["request_pilot"].queryset = Profile.user.objects.filter(
+                user_type="Pilot"
+            )

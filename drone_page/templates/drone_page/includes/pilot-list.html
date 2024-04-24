@@ -2,9 +2,17 @@
 <li class="pilots-list__item">
     <div class="pilot">
       <div class="pilot__top">
+        
         <img
+        {%if pilot.profile.profile_image%}
+         src="{{pilot.profile.profile_image.url}}"
+         alt="{{pilot.first_name}} icon"
+
+        {%else%}
           src={% static "images/no-icon.webp"%}
           alt="no icon"
+        {%endif%}
+          
           class="pilot__icon"
         >
         {% comment %} get from model {% endcomment %}

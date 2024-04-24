@@ -13,6 +13,11 @@ urlpatterns = [
     path("profile/dashboard", views.user_dashboard, name="dashboard"),
     path("profile/account-settings", views.user_settings, name="account-settings"),
     path("ajax/load_cities", views.load_cities, name="ajax_load_cities"),
+    path(
+        "ajax/job-request",
+        views.load_job_request_cities,
+        name="ajax_load_job_request_cities",
+    ),
     path("profile/favourites", views.user_favourites, name="favourites"),
     path("profile/blocked", views.user_blocked, name="blocked"),
     path("profile/features", views.user_blocked, name="features"),

@@ -36,37 +36,41 @@
           Kindly fill the form below and our representative will get in touch with you.
         </p>
 
-        <form class="form job-request__form">
+        <form method="POST" class="form job-request__form" id="jobRequestForm" data-job-cities-url="{% url "ajax_load_job_request_cities" %}">
+          {% csrf_token %}
           <div class="form__row">
-            <input
+            {{job_request_form.request_name}}
+            {% comment %} <input
               type="text"
               name="organization-name"
               id="organization-name"
               placeholder="Organization Name"
               class="form__field"
-            >
+            > {% endcomment %}
           </div>
 
           <div class="form__row">
-            <input
+            {{job_request_form.request_email}}
+            {% comment %} <input
               type="email"
               name="email"
               id="email"
               placeholder="Email"
               class="form__field"
-            >
-
-            <input
+            > {% endcomment %}
+            {{job_request_form.request_tel}}
+            {% comment %} <input
               type="tel"
               name="phone"
               id="phone"
               placeholder="Telephone Number"
               class="form__field"
-            >
+            > {% endcomment %}
           </div>
 
           <div class="form__row">
-            <select
+            {{job_request_form.request_pilot}}
+            {% comment %} <select
               name="select-pilot"
               id="select-pilot"
               class="form__field"
@@ -77,9 +81,9 @@
               <option value="Pilot-3">Pilot 3</option>
               <option value="Pilot-4">Pilot 4</option>
               <option value="Pilot-5">Pilot 5</option>
-            </select>
-
-            <select
+            </select> {% endcomment %}
+            {{job_request_form.request_job_type}}
+            {% comment %} <select
               name="select-job-type"
               id="select-job-type"
               class="form__field"
@@ -90,28 +94,31 @@
               <option value="Pilot-3">Event Coverage</option>
               <option value="Pilot-4">Real Estate Marketing</option>
               <option value="Pilot-5">Custom Services</option>
-            </select>
+            </select> {% endcomment %}
           </div>
 
           <div class="form__row">
-            <input
+            {{job_request_form.request_country}}
+            {% comment %} <input
               type="text"
               name="address"
               id="address"
               class="form__field"
               placeholder="Organization Address"
-            >
+            > {% endcomment %}
+            {{job_request_form.request_city}}
           </div>
 
           <div class="form__row">
-            <textarea
+            {{job_request_form.request_extra_information}}
+            {% comment %} <textarea
               name=""
               id=""
               cols="30"
               rows="10"
               placeholder="Any extra information you need to tell us?"
               class="form__field form__field--textarea"
-            ></textarea>
+            ></textarea> {% endcomment %}
           </div>
 
           <div class="form__row form__row--submit">
@@ -125,4 +132,5 @@
       </div>
     </div>
   </main>
+  
 {%endblock%}

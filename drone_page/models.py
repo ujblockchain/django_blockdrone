@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth import get_user_model
+import uuid
 
 User = get_user_model()
 
@@ -15,6 +16,13 @@ class Country(models.Model):
 class City(models.Model):
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
 
+    name = models.CharField(max_length=40)
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class JobType(models.Model):
     name = models.CharField(max_length=40)
 
     def __str__(self) -> str:
@@ -42,24 +50,30 @@ class Profile(models.Model):
         return f"{self.user.username} - {self.country} - {self.city}"
 
 
-# # create pilot model
-# class PilotModel(models.Model):
-#     pilotId = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-#     pilot_name = ""
-#     pilot_location = models.CharField(max_length=50)
-#     pilot_jobs = models.IntegerField(default=0)
-#     pilot_profile_description = models.TextField()
-#     pilot_rate = models.IntegerField()
+class JobRequestModel(models.Model):
+    request_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    request_name = models.CharField(max_length=150)
+    request_email = models.EmailField()
+    request_tel = models.CharField(
+        max_length=13, help_text="Enter your phone number", null=False
+    )
+    request_pilot = models.ForeignKey(
+        Profile, on_delete=models.SET_NULL, null=True
+    )  # pull from model
+    request_job_type = models.ForeignKey(JobType, on_delete=models.SET_NULL, null=True)
+    request_country = models.ForeignKey(
+        Country,
+        on_delete=models.SET_NULL,
+        null=True,
+        default={None: "Select a country"},
+    )
+    request_city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
+    request_extra_information = models.TextField(blank=True)
+    request_create_date = models.DateTimeField(auto_now_add=True)
+    request_update_date = models.DateTimeField(auto_now=True)
 
-
-# class JobRequestModel(models.Model):
-#     request_job_identifier = models.CharField(max_length=23)
-#     request_name = models.CharField(max_length=150)
-#     request_email = models.EmailField()
-#     request_pilot = ""  # pull from model
-#     request_job_type = models.CharField(max_length=150)
-#     request_address = models.CharField(max_length=250)
-#     request_extra_information = models.TextField()
+    def __str__(self) -> str:
+        return f"job_id:{self.request_id} -pilot:{self.request_pilot.user.username} - requester:{self.request_name}"
 
 
 # class JobReviewModel(models.Model):
