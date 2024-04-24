@@ -3,7 +3,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 
 from users.forms import CustomUserChangeForm
-from .models import Profile, City, JobRequestModel
+from .models import Profile, City, JobRequestModel, JobReviewModel
 
 # custom user
 User = get_user_model()
@@ -208,7 +208,11 @@ class JobRequestsForm(forms.ModelForm):
 
     class Meta:
         model = JobRequestModel
-        exclude = ("request_id","request_create_date","request_update_date",)
+        exclude = (
+            "request_id",
+            "request_create_date",
+            "request_update_date",
+        )
 
         widgets = {
             "request_name": forms.TextInput(
@@ -287,5 +291,46 @@ class JobRequestsForm(forms.ModelForm):
                 )
             # filter the request_pilot dropdown to only show pilots
             self.fields["request_pilot"].queryset = Profile.user.objects.filter(
+                user_type="Pilot"
+            )
+
+
+class JobReviewForm(forms.ModelForm):
+
+    class Meta:
+        model = JobReviewModel
+        exclude = (
+            "review_id",
+            "review_create_date",
+        )
+        widgets = {
+            "review_job": forms.TextInput(
+                attrs={
+                    "class": "form__field",
+                    "placeholder": "Job ID",
+                    "required": True,
+                }
+            ),
+            "review_pilot": forms.Select(
+                attrs={
+                    "class": "form__field",
+                    "required": True,
+                }
+            ),
+            "review_rating": forms.Select(
+                attrs={
+                    "class": "form__field form__field--range",
+                }
+            ),
+            "review_comment": forms.Textarea(
+                attrs={"class": "form__field form__field--textarea"}
+            ),
+        }
+
+        def __init__(self, *args, **kwargs) -> None:
+
+            super().__init__(*args, **kwargs)
+
+            self.fields["review_pilot"].queryset = User.objects.filter(
                 user_type="Pilot"
             )

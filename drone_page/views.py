@@ -8,7 +8,14 @@ from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate, login, logout
 
 
-from .forms import SignUpForm, LoginForm, UpdateUserForm, ProfileForm, JobRequestsForm
+from .forms import (
+    SignUpForm,
+    LoginForm,
+    UpdateUserForm,
+    ProfileForm,
+    JobRequestsForm,
+    JobReviewForm,
+)
 from .models import City, Profile, JobRequestModel
 
 User = get_user_model()
@@ -53,8 +60,27 @@ def pilot_detail(request, slug):
 
 
 def job_review(request):
+    # set templage page to load for this view
     template_page = "drone_page/job-review.html"
-    context = {}
+    # check if post request sent on this page = form has been submitted
+    if request.method == "POST":
+        # get the submitted values in the requests
+        submitted_job_review_form = JobReviewForm(request.POST)
+        # validate the inputs
+        if submitted_job_review_form.is_valid():
+            # save the submitted details to the database
+            # need to get the job id
+            submitted_job_review_form.save()
+            # permanently redirect the user to the home page
+            return HttpResponsePermanentRedirect(reverse("index"))
+        else:
+            print("something wrong")
+            print(submitted_job_review_form.errors)
+            return HttpResponsePermanentRedirect(reverse("job-review"))
+    else:
+        submitted_job_review_form = JobReviewForm()
+
+    context = {"job_review_form": submitted_job_review_form}
 
     return render(request, template_page, context)
 

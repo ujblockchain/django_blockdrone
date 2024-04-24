@@ -1,0 +1,61 @@
+{%load static%}
+<li class="dashboard__item">
+    <div class="job">
+    <div class="job__controls">
+        <p>
+        <img
+            src="{% static "images/icons/pilot.webp"%}"
+            alt=""
+            class="job__icon job__icon--small"
+        >
+        <span class="bold">Pilot:</span> {{job.request_pilot.user.first_name}}
+        </p>
+
+        <p class="job__number">#{{job.request_id}}</p>
+    </div>
+
+    <p>
+        <img
+        src="{%static "images/icons/description.webp"%}"
+        alt=""
+        class="job__icon"
+        >
+        <span class="bold">Job Type:</span> {{job.request_job_type}}
+    </p>
+    <p>
+        <img
+        src="{%static "images/icons/description.webp"%}"
+        alt=""
+        class="job__icon"
+        >
+        <span class="bold">Description:</span> {{job.request_extra_information}}
+    </p>
+
+    <p>
+        <img
+        src="{% static "images/icons/status.webp"%}"
+        alt=""
+        class="job__icon"
+        >
+        <span class="bold">Status:</span> Complete
+    </p>
+
+    <p>
+        <img
+        src="{% static "images/icons/duration.webp"%}"
+        alt=""
+        class="job__icon"
+        >
+        <span class="bold">Hours Worked:</span> 3 hours
+    </p>
+
+    <p>
+        <img
+        src="{% static "images/icons/rand.webp"%}"
+        alt=""
+        class="job__icon"
+        >
+        <span class="bold">Total Cost:</span> R3000.00
+    </p>
+    </div>
+</li>

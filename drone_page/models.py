@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django.contrib.auth import get_user_model
 import uuid
 
@@ -76,12 +77,14 @@ class JobRequestModel(models.Model):
         return f"job_id:{self.request_id} -pilot:{self.request_pilot.user.username} - requester:{self.request_name}"
 
 
-# class JobReviewModel(models.Model):
-#     review_id = models.CharField(max_length=23)
-#     review_email = models.EmailField()
-#     review_tel = models.CharField(max_length=23)
-#     review_pilot = models.CharField(
-#         max_length=120
-#     )  # ?one-to-one with pilot or users model
-#     review_rating = models.IntegerField()  # could be smaller only 1,2,3,4,5
-#     review_comments = models.TextField(max_length=500)
+class JobReviewModel(models.Model):
+    review_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    review_job = models.OneToOneField(JobRequestModel, on_delete=models.PROTECT)
+    # review_email = models.EmailField()
+    # review_tel = models.CharField(max_length=23)
+    review_pilot = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    review_rating = models.IntegerField(
+        validators=[MinValueValidator(1), MaxValueValidator(5)]
+    )  # could be smaller only 1,2,3,4,5
+    review_comment = models.TextField(max_length=500)
+    review_create_date = models.DateTimeField(auto_now_add=True)

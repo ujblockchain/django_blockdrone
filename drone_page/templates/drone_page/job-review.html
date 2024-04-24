@@ -25,7 +25,7 @@
 
           <a href="javascript:history.back()">
             <img
-              src="../images/icons/close.webp"
+              src="{% static "images/icons/close.webp"%}"
               alt="close"
               class="job-request__icon"
             >
@@ -38,36 +38,38 @@
 
         <form class="form job-review__form">
           <div class="form__row">
-            <input
+            {{job_review_form.review_job}}
+            {% comment %} <input
               type="text"
               name="job-id"
               id="job-id"
               placeholder="Job ID"
               class="form__field"
-            >
+            > {% endcomment %}
           </div>
 
           <div class="form__row">
-            <input
+            {% comment %} <input
               type="email"
               name="email"
               id="email"
               placeholder="Email"
               class="form__field"
-            >
+            > {% endcomment %}
 
-            <input
+            {% comment %} <input
               type="tel"
               name="phone"
               id="phone"
               pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
               placeholder="Telephone Number"
               class="form__field"
-            >
+            > {% endcomment %}
           </div>
 
           <div class="form__row">
-            <select
+            {{job_review_form.review_pilot}}
+            {% comment %} <select
               name="select-pilot"
               id="select-pilot"
               class="form__field"
@@ -78,15 +80,15 @@
               <option value="Pilot-3">Pilot 3</option>
               <option value="Pilot-4">Pilot 4</option>
               <option value="Pilot-5">Pilot 5</option>
-            </select>
+            </select> {% endcomment %}
           </div>
 
           <div class="form__row">
             <label for="points" class="form__label">
               Rate Pilot (between 1 and 5):
             </label>
-
-            <input
+            {{job_review_form.review_rating}}
+            {% comment %} <input
               type="range"
               name="rating"
               id="rating"
@@ -94,7 +96,7 @@
               max="5"
               list="markers"
               class="form__field form__field--range"
-            >
+            > {% endcomment %}
 
             <datalist id="markers">
               <option value="1"></option>
@@ -106,14 +108,15 @@
           </div>
 
           <div class="form__row">
-            <textarea
+            {{job_review.review_comment}}
+            {% comment %} <textarea
               name=""
               id=""
               cols="30"
               rows="10"
               placeholder="Comments"
               class="form__field form__field--textarea"
-            ></textarea>
+            ></textarea> {% endcomment %}
           </div>
 
           <div class="form__row form__row--submit">
