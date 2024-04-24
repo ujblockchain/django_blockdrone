@@ -8,8 +8,8 @@ from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate, login, logout
 
 
-from .forms import SignUpForm, LoginForm, UpdateUserForm, ProfileForm
-from .models import City, Profile
+from .forms import SignUpForm, LoginForm, UpdateUserForm, ProfileForm, JobRequestsForm
+from .models import City, Profile, JobRequestModel
 
 User = get_user_model()
 # Create your views here.
@@ -60,8 +60,33 @@ def job_review(request):
 
 
 def job_request(request):
+
     template_page = "drone_page/job-request.html"
-    context = {}
+    # check for post request - form has been submitted
+    if request.method == "POST":
+
+        # get the submitted values in the request
+        submitted_job_request_form = JobRequestsForm(request.POST)
+
+        # validate the inputs
+        if submitted_job_request_form.is_valid():
+
+            # save the submitted details to the database
+            submitted_job_request_form.save()
+
+            # Permanently redirect the user to the home page
+            return HttpResponsePermanentRedirect(reverse("index"))
+
+        else:
+            print("something wrong")
+            print(submitted_job_request_form.errors)
+            return HttpResponsePermanentRedirect(reverse("job-request"))
+
+    # request is not post - load the form with no values
+    else:
+        submitted_job_request_form = JobRequestsForm()
+
+    context = {"job_request_form": submitted_job_request_form}
 
     return render(request, template_page, context)
 
@@ -101,9 +126,17 @@ def user_login(request):
 @login_required(login_url="login")
 def user_dashboard(request):
     template_page = "drone_page/profile/dashboard.html"
+
     # get the user
     user_logged_in = request.user
-    context = {"user_logged_in": user_logged_in}
+    # get job requests?
+    job_requests = JobRequestModel.objects.filter(request_pilot_id=user_logged_in.id)
+
+    context = {
+        "user_logged_in": user_logged_in,
+        "user_logged_in_job_requests": job_requests,
+        "user_logged_in_no_jobs": job_requests.count(),
+    }
     return render(request, template_page, context)
 
 
@@ -193,6 +226,15 @@ def user_settings(request):
 
 def load_cities(request):
     country_id = request.GET.get("country_id")
+    cities = City.objects.filter(country_id=country_id)
+    context = {"cities": cities}
+    return render(
+        request, "drone_page/profile/city_dropdown_list_options.html", context
+    )
+
+
+def load_job_request_cities(request):
+    country_id = request.GET.get("request_country_id")
     cities = City.objects.filter(country_id=country_id)
     context = {"cities": cities}
     return render(
