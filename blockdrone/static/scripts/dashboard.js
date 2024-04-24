@@ -1,17 +1,17 @@
-const WELCOME = document.getElementById('welcome');
-let userInfo = JSON.parse(sessionStorage.getItem('user-info'));
+// const WELCOME = document.getElementById('welcome');
+// let userInfo = JSON.parse(sessionStorage.getItem('user-info'));
 
-if (sessionStorage.getItem('signedIn') === 'true') {
-  WELCOME.innerText = `Welcome, ${userInfo.firstName[0].toUpperCase()}${userInfo.firstName.substr(1)}`
-}
+// if (sessionStorage.getItem('signedIn') === 'true') {
+//   WELCOME.innerText = `Welcome, ${userInfo.firstName[0].toUpperCase()}${userInfo.firstName.substr(1)}`
+// }
 
-const USER_NAME = document.getElementById('user-name');
-const MEMBER_SINCE = document.getElementById('member-since');
+// const USER_NAME = document.getElementById('user-name');
+// const MEMBER_SINCE = document.getElementById('member-since');
 
-const dateArray = userInfo.createdAt.split(' ');
+// const dateArray = userInfo.createdAt.split(' ');
 
-USER_NAME.innerText = `${userInfo.firstName[0].toUpperCase()}${userInfo.firstName.substr(1)} ${userInfo.surname[0].toUpperCase()}.`;
-MEMBER_SINCE.innerText = `${dateArray[2]} ${dateArray[1]} ${dateArray[3]}`;
+// USER_NAME.innerText = `${userInfo.firstName[0].toUpperCase()}${userInfo.firstName.substr(1)} ${userInfo.surname[0].toUpperCase()}.`;
+// MEMBER_SINCE.innerText = `${dateArray[2]} ${dateArray[1]} ${dateArray[3]}`;
 
 const JOBS = document.getElementsByClassName('dashboard__item');
 const PAGINATE_BACK = document.getElementById('paginate-back');
