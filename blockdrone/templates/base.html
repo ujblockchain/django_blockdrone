@@ -22,22 +22,23 @@ id="page-top" {%endblock%}
 
 >
     {%block page_header%}{%endblock%}
-    <main>
+    {% comment %} <main> {% endcomment %}
     {%block page_content%}
     
     {%endblock%}
-    </main>
+    {% comment %} </main> {% endcomment %}
     {%block page_footer%}
     {%include "include/footer.html"%}
     {%endblock%}
+
+    
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src={% static "scripts/main.js"%}></script>
     {%block page_script%}
     
     {%endblock%}
-    
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src={% static "scripts/load_city.js"%}></script>
     <script type="text/javascript" src={% static "scripts/load_job_city.js"%}></script>
-    <script type="text/javascript" src={% static "scripts/main.js"%}></script>
     <script type="text/javascript" src={% static "scripts/dropdown.js"%}></script>
     <script type="text/javascript" src={% static "scripts/menu.js"%}></script>
     <script type="text/javascript" src={% static "scripts/profile-images.js"%}></script>
