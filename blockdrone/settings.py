@@ -150,3 +150,7 @@ MEDIA_URL = "/media/"  # public URL at the browser
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+LOGIN_URL = "login" # URL where requests are redirected for login when login is required to access a page
+SESSION_COOKIE_SECURE = False
