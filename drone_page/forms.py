@@ -302,7 +302,9 @@ class JobReviewForm(forms.ModelForm):
         exclude = (
             "review_id",
             "review_create_date",
+            "review_pilot",
         )
+        RATING_CHOICES = {1: "One", 2: "Two", 3: "Three", 4: "Four", 5: "Five"}
         widgets = {
             "review_job": forms.TextInput(
                 attrs={
@@ -311,19 +313,24 @@ class JobReviewForm(forms.ModelForm):
                     "required": True,
                 }
             ),
-            "review_pilot": forms.Select(
-                attrs={
-                    "class": "form__field",
-                    "required": True,
-                }
-            ),
+            # "review_pilot": forms.Select(
+            #     attrs={
+            #         "class": "form__field",
+            #         "required": True,
+            #     }
+            # ),
             "review_rating": forms.Select(
+                choices=RATING_CHOICES,
                 attrs={
                     "class": "form__field form__field--range",
-                }
+                    "default": RATING_CHOICES[1],
+                },
             ),
             "review_comment": forms.Textarea(
-                attrs={"class": "form__field form__field--textarea"}
+                attrs={
+                    "class": "form__field form__field--textarea",
+                    "placeholder": "Leave a review...",
+                }
             ),
         }
 
@@ -331,6 +338,6 @@ class JobReviewForm(forms.ModelForm):
 
             super().__init__(*args, **kwargs)
 
-            self.fields["review_pilot"].queryset = User.objects.filter(
+            self.fields["review_pilot"].queryset = Profile.user.objects.filter(
                 user_type="Pilot"
             )
