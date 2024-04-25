@@ -36,7 +36,8 @@
           Kindly submit a job review for completed job.
         </p>
 
-        <form class="form job-review__form">
+        <form method="POST" class="form job-review__form">
+          {%csrf_token%}
           <div class="form__row">
             {{job_review_form.review_job}}
             {% comment %} <input
@@ -68,7 +69,7 @@
           </div>
 
           <div class="form__row">
-            {{job_review_form.review_pilot}}
+            {% comment %} {{job_review_form.review_pilot}} {% endcomment %}
             {% comment %} <select
               name="select-pilot"
               id="select-pilot"
@@ -108,7 +109,7 @@
           </div>
 
           <div class="form__row">
-            {{job_review.review_comment}}
+            {{job_review_form.review_comment}}
             {% comment %} <textarea
               name=""
               id=""
@@ -120,11 +121,11 @@
           </div>
 
           <div class="form__row form__row--submit">
-            <input
-              type="submit"
-              value="Submit"
+            <button
+              {% comment %} type="submit"
+              value="Submit" {% endcomment %}
               class="form__submit"
-            >
+            >Submit Review</button>
           </div>
         </form>
       </div>
