@@ -16,103 +16,46 @@ from .forms import (
     JobRequestsForm,
     JobReviewForm,
 )
-from .models import City, Profile, JobRequestModel
+from .models import City, Profile, JobRequestModel, JobReviewModel
 
 User = get_user_model()
 # Create your views here.
 
 
-def index(request):
+def sign_up(request):
 
-    # index_page
-    template_page = "drone_page/index.html"
-    context = {}
+    template_page = "drone_page/accounts/signup.html"
 
-    return render(request, template_page, context)
-
-
-def browse_pilots(request):
-
-    # browse_pilots page
-    template_page = "drone_page/browse-pilots.html"
-
-    # query users to get all pilots
-    pilots = User.objects.filter(user_type="Pilot")
-
-    context = {"pilots": pilots}
-
-    return render(request, template_page, context)
-
-
-def pilot_detail(request, slug):
-    # slug format - username
-    pilot = get_object_or_404(User, username=slug)
-
-    # set template for pilot detail
-    template_page = "drone_page/pilot-detail.html"
-
-    # slug: first_name-userid-username
-
-    # template context
-    context = {"pilot": pilot}
-
-    return render(request, template_page, context)
-
-
-def job_review(request):
-    # set templage page to load for this view
-    template_page = "drone_page/job-review.html"
-    # check if post request sent on this page = form has been submitted
     if request.method == "POST":
-        # get the submitted values in the requests
-        submitted_job_review_form = JobReviewForm(request.POST)
+        form = SignUpForm(request.POST)
         # validate the inputs
-        if submitted_job_review_form.is_valid():
-            # save the submitted details to the database
-            # need to get the job id
-            submitted_job_review_form.save()
-            # permanently redirect the user to the home page
-            return HttpResponsePermanentRedirect(reverse("index"))
+        if form.is_valid():
+            # check if passwords match
+            if form.cleaned_data["password1"] == form.cleaned_data["password2"]:
+                new_user = User.objects.create_user(
+                    username=form.cleaned_data["username"],
+                    first_name=form.cleaned_data["first_name"],
+                    last_name=form.cleaned_data["username"],
+                    email=form.cleaned_data["email"],
+                    user_type=form.cleaned_data["user_type"],
+                    tel_number=form.cleaned_data["tel_number"],
+                    password=form.cleaned_data["password1"],
+                )
+                # save to the database
+                new_user.save()
+
+                # redirect to login page
+                return HttpResponsePermanentRedirect(reverse("login"))
         else:
-            print("something wrong")
-            print(submitted_job_review_form.errors)
-            return HttpResponsePermanentRedirect(reverse("job-review"))
+            # print("not valid?")
+            # print(form.errors)
+            # messages.add_message(request, messages.ERROR, form.errors)
+            return HttpResponseRedirect(reverse("sign-up"))
     else:
-        submitted_job_review_form = JobReviewForm()
+        # create form when someone lands on the page
+        form = SignUpForm()
 
-    context = {"job_review_form": submitted_job_review_form}
-
-    return render(request, template_page, context)
-
-
-def job_request(request):
-
-    template_page = "drone_page/job-request.html"
-    # check for post request - form has been submitted
-    if request.method == "POST":
-
-        # get the submitted values in the request
-        submitted_job_request_form = JobRequestsForm(request.POST)
-
-        # validate the inputs
-        if submitted_job_request_form.is_valid():
-
-            # save the submitted details to the database
-            submitted_job_request_form.save()
-
-            # Permanently redirect the user to the home page
-            return HttpResponsePermanentRedirect(reverse("index"))
-
-        else:
-            print("something wrong")
-            print(submitted_job_request_form.errors)
-            return HttpResponsePermanentRedirect(reverse("job-request"))
-
-    # request is not post - load the form with no values
-    else:
-        submitted_job_request_form = JobRequestsForm()
-
-    context = {"job_request_form": submitted_job_request_form}
+    context = {"form": form}
 
     return render(request, template_page, context)
 
@@ -147,6 +90,16 @@ def user_login(request):
     context = {"form": form}
 
     return render(request, template_page, context)
+
+
+def user_logout(request):
+
+    auth.logout(request)
+
+    request.session.flush()
+    "... request"
+
+    return HttpResponsePermanentRedirect(reverse("index"))
 
 
 @login_required(login_url="login")
@@ -250,24 +203,6 @@ def user_settings(request):
     return render(request, template_page, context)
 
 
-def load_cities(request):
-    country_id = request.GET.get("country_id")
-    cities = City.objects.filter(country_id=country_id)
-    context = {"cities": cities}
-    return render(
-        request, "drone_page/profile/city_dropdown_list_options.html", context
-    )
-
-
-def load_job_request_cities(request):
-    country_id = request.GET.get("request_country_id")
-    cities = City.objects.filter(country_id=country_id)
-    context = {"cities": cities}
-    return render(
-        request, "drone_page/profile/city_dropdown_list_options.html", context
-    )
-
-
 def user_favourites(request):
     template_page = "drone_page/profile/favourites.html"
     context = {}
@@ -286,52 +221,128 @@ def user_features(request):
     return render(request, template_page, context)
 
 
-def user_logout(request):
+def index(request):
 
-    auth.logout(request)
-
-    request.session.flush()
-    "... request"
-
-    return HttpResponsePermanentRedirect(reverse("index"))
-
-
-def sign_up(request):
-
-    template_page = "drone_page/accounts/signup.html"
-
-    if request.method == "POST":
-        form = SignUpForm(request.POST)
-        # validate the inputs
-        if form.is_valid():
-            # check if passwords match
-            if form.cleaned_data["password1"] == form.cleaned_data["password2"]:
-                new_user = User.objects.create_user(
-                    username=form.cleaned_data["username"],
-                    first_name=form.cleaned_data["first_name"],
-                    last_name=form.cleaned_data["username"],
-                    email=form.cleaned_data["email"],
-                    user_type=form.cleaned_data["user_type"],
-                    tel_number=form.cleaned_data["tel_number"],
-                    password=form.cleaned_data["password1"],
-                )
-                # save to the database
-                new_user.save()
-
-                # redirect to login page
-                return HttpResponsePermanentRedirect(reverse("login"))
-        else:
-            # print("not valid?")
-            # print(form.errors)
-            # messages.add_message(request, messages.ERROR, form.errors)
-            return HttpResponseRedirect(reverse("sign-up"))
-    else:
-        # create form when someone lands on the page
-        form = SignUpForm()
-
-    context = {"form": form}
+    # index_page
+    template_page = "drone_page/index.html"
+    context = {}
 
     return render(request, template_page, context)
+
+
+def browse_pilots(request):
+
+    # browse_pilots page
+    template_page = "drone_page/browse-pilots.html"
+
+    # query users to get all pilots
+    pilots = User.objects.filter(user_type="Pilot")
+
+    context = {"pilots": pilots}
+
+    return render(request, template_page, context)
+
+
+def pilot_detail(request, slug):
+    # slug format - username
+    pilot = get_object_or_404(User, username=slug)
+
+    # set template for pilot detail
+    template_page = "drone_page/pilot-detail.html"
+
+    # slug: first_name-userid-username
+
+    # template context
+    context = {"pilot": pilot}
+
+    return render(request, template_page, context)
+
+
+@login_required
+def job_review(request):
+    # set templage page to load for this view
+    template_page = "drone_page/job-review.html"
+    # check if post request sent on this page = form has been submitted
+    if request.method == "POST":
+        # get the submitted values in the requests
+        submitted_job_review_form = JobReviewForm(request.POST)
+        # validate the inputs
+        if submitted_job_review_form.is_valid():
+            # get form cleaned_data
+            job_review_clean_data = submitted_job_review_form.cleaned_data
+            # get the job
+
+            print(job_review_clean_data["review_job"].request_id)
+            # reviewed_job = JobRequestModel.objects.get(
+            #     request_id=job_review_clean_data["review_job"]["job_id"]
+            # )
+
+            # save the submitted details to the database
+
+            # need to get the job id
+            # submitted_job_review_form.save()
+            # permanently redirect the user to the home page
+            return HttpResponsePermanentRedirect(reverse("index"))
+        else:
+            print("something wrong")
+            print(submitted_job_review_form.errors)
+            return HttpResponsePermanentRedirect(reverse("job-review"))
+    else:
+        submitted_job_review_form = JobReviewForm()
+
+    context = {"job_review_form": submitted_job_review_form}
+
+    return render(request, template_page, context)
+
+
+def job_request(request):
+
+    template_page = "drone_page/job-request.html"
+    # check for post request - form has been submitted
+    if request.method == "POST":
+
+        # get the submitted values in the request
+        submitted_job_request_form = JobRequestsForm(request.POST)
+
+        # validate the inputs
+        if submitted_job_request_form.is_valid():
+
+            # save the submitted details to the database
+            submitted_job_request_form.save()
+
+            # Permanently redirect the user to the home page
+            return HttpResponsePermanentRedirect(reverse("index"))
+
+        else:
+            print("something wrong")
+            print(submitted_job_request_form.errors)
+            return HttpResponsePermanentRedirect(reverse("job-request"))
+
+    # request is not post - load the form with no values
+    else:
+        submitted_job_request_form = JobRequestsForm()
+
+    context = {"job_request_form": submitted_job_request_form}
+
+    return render(request, template_page, context)
+
+
+def load_cities(request):
+    country_id = request.GET.get("country_id")
+    cities = City.objects.filter(country_id=country_id)
+    context = {"cities": cities}
+    return render(
+        request, "drone_page/profile/city_dropdown_list_options.html", context
+    )
+
+
+def load_job_request_cities(request):
+    country_id = request.GET.get("request_country_id")
+    cities = City.objects.filter(country_id=country_id)
+    context = {"cities": cities}
+    return render(
+        request, "drone_page/profile/city_dropdown_list_options.html", context
+    )
 
 
 # def user_account_settings(request):
