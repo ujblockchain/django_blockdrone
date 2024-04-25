@@ -82,7 +82,7 @@ class JobReviewModel(models.Model):
     review_job = models.OneToOneField(JobRequestModel, on_delete=models.PROTECT)
     # review_email = models.EmailField()
     # review_tel = models.CharField(max_length=23)
-    review_pilot = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    review_pilot = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True)
     review_rating = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(5)]
     )  # could be smaller only 1,2,3,4,5
