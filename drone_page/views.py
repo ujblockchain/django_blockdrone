@@ -1,3 +1,4 @@
+import uuid
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
 from django.urls import reverse
@@ -262,6 +263,7 @@ def pilot_detail(request, slug):
 def job_review(request):
     # set templage page to load for this view
     template_page = "drone_page/job-review.html"
+    pilot_self_review = False
     # check if post request sent on this page = form has been submitted
     if request.method == "POST":
         # get the submitted values in the requests
@@ -269,20 +271,27 @@ def job_review(request):
         # validate the inputs
         if submitted_job_review_form.is_valid():
             # get form cleaned_data
-            job_review_clean_data = submitted_job_review_form.cleaned_data
-            # get the job
+            cleaned_form_data = submitted_job_review_form.cleaned_data
+            reviewed_job = cleaned_form_data["review_job"]
+            # check if logged in user is the pilot on the job
+            if request.user.id != reviewed_job.request_pilot.user.id:
+                # create review object
+                new_review = JobReviewModel(
+                    review_job=reviewed_job,
+                    review_pilot=reviewed_job.request_pilot,
+                    review_rating=cleaned_form_data["review_rating"],
+                    review_comment=cleaned_form_data["review_comment"],
+                )
+                # save
+                new_review.save()
 
-            print(job_review_clean_data["review_job"].request_id)
-            # reviewed_job = JobRequestModel.objects.get(
-            #     request_id=job_review_clean_data["review_job"]["job_id"]
-            # )
+                # submitted_job_review_form.save()
+                return HttpResponsePermanentRedirect(reverse("index"))
+            else:
+                # pilot trying to review themselves
+                pilot_self_review = True
+                return HttpResponsePermanentRedirect(reverse("job-review"))
 
-            # save the submitted details to the database
-
-            # need to get the job id
-            # submitted_job_review_form.save()
-            # permanently redirect the user to the home page
-            return HttpResponsePermanentRedirect(reverse("index"))
         else:
             print("something wrong")
             print(submitted_job_review_form.errors)
@@ -290,7 +299,10 @@ def job_review(request):
     else:
         submitted_job_review_form = JobReviewForm()
 
-    context = {"job_review_form": submitted_job_review_form}
+    context = {
+        "job_review_form": submitted_job_review_form,
+        "pilot_self_review": pilot_self_review,
+    }
 
     return render(request, template_page, context)
 
