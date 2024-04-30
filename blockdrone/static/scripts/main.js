@@ -1,4 +1,4 @@
-// 'use strict';
+'use strict';
 
 const PREVIOUS = document.getElementById('previous');
 const NEXT = document.getElementById('next');
