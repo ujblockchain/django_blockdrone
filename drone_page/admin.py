@@ -19,9 +19,17 @@ class JobReviewModelAdmin(admin.ModelAdmin):
     list_display = ("review_id", "review_job", "review_pilot", "review_create_date")
 
 
+class CountryAdmin(admin.ModelAdmin):
+    list_display = ["id", "name"]
+
+
+class CityAdmin(admin.ModelAdmin):
+    list_display = ["id", "name", "country"]
+
+
 admin.site.register(Profile)
-admin.site.register(Country)
-admin.site.register(City)
+admin.site.register(Country, CountryAdmin)
+admin.site.register(City, CityAdmin)
 admin.site.register(JobType)
 admin.site.register(JobRequestModel, JobRequestModelAdmin)
 admin.site.register(JobReviewModel, JobReviewModelAdmin)
