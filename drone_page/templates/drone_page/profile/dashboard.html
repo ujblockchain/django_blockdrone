@@ -61,7 +61,7 @@
             <p class="dashboard__user-text">
             <span class="bold">Jobs</span>
             {% comment %} get from job models {% endcomment %}
-            0
+            {{user_logged_in_no_jobs}}
             </p>
         </div>
 
@@ -88,7 +88,7 @@
 
             <p class="dashboard__user-text">
             <span class="bold">Member since</span>
-            <span id="member-since"></span>
+            <span id="member-since">{{user_logged_in.date_joined}}</span>
             </p>
         </div>
         </div>
