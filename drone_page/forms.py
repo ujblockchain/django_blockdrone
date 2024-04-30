@@ -378,9 +378,22 @@ class JobReviewForm(forms.ModelForm):
         }
 
         def __init__(self, *args, **kwargs) -> None:
-
             super().__init__(*args, **kwargs)
 
             self.fields["review_pilot"].queryset = Profile.user.objects.filter(
                 user_type="Pilot"
             )
+
+    def clean(self):
+
+        # get form
+        form = super().clean()
+
+        # check if user allowed to review
+        # print("*" * 50)
+        # if self.request.user == form.review_job.request_pilot.user:
+        #     print("*" * 50)
+        #     self.add_error(
+        #         ValidationError("Pilot cannot review their own job."),
+        #     )
+        return self.cleaned_data
