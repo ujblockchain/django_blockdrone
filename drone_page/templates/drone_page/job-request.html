@@ -67,7 +67,16 @@
               {% endfor %}
               
             </select> 
-            {{form.request_job_type}}
+
+            <select name="request_job_type" id="id_job_request_form" class="form__field" required>
+
+              <option value="default" disabled selected>Select Job Type</option>
+              {% for job_type in job_types %}
+              <option value="{{job_type.id}}">{{job_type}}</option>
+              {% endfor %}
+              
+            </select> 
+            {% comment %} {{form.request_job_type}} {% endcomment %}
           </div>
 
           <div class="form__row">
