@@ -150,25 +150,25 @@
             <ul class="dropdown__list">
               <li class="dropdown__item">
                 <div>
-                  <a href="./pages/profile/dashboard.html" class="dropdown__link">My Profile</a>
+                  <a href="{% url "dashboard"%}" class="dropdown__link">My Profile</a>
                 </div>
               </li>
 
               <li class="dropdown__item">
                 <div>
-                  <a href="./pages/profile/account-settings.html" class="dropdown__link">Account Settings</a>
+                  <a href="{% url "account-settings"%}" class="dropdown__link">Account Settings</a>
                 </div>
               </li>
 
               <li class="dropdown__item">
                 <div>
-                  <a href="./pages/profile/favourites.html" class="dropdown__link">Favourite Pilots</a>
+                  <a href="{% url "favourites"%}" class="dropdown__link">Favourite Pilots</a>
                 </div>
               </li>
 
               <li class="dropdown__item">
                 <div>
-                  <a href="./pages/profile/blocked.html" class="dropdown__link">Blocked Pilots</a>
+                  <a href="{% url "blocked"%}" class="dropdown__link">Blocked Pilots</a>
                 </div>
               </li>
 
@@ -180,7 +180,7 @@
             </ul>
 
             <div class="dropdown__content-bottom">
-              <a href="{%url "index"%}" class="dropdown__button" id="sign-out-menu">Sign Out</a>
+              <a href="{%url "logout"%}" class="dropdown__button" id="sign-out-menu">Sign Out</a>
             </div>
           </div>
         </div>
