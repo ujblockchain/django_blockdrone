@@ -1,9 +1,11 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django import forms
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
+
 
 from users.forms import CustomUserChangeForm
-from .models import Profile, City, JobRequestModel, JobReviewModel
+from .models import JobType, Profile, City, JobRequestModel, JobReviewModel
 
 # custom user
 User = get_user_model()
@@ -205,77 +207,80 @@ class ProfileForm(forms.ModelForm):
 
 
 class JobRequestsForm(forms.ModelForm):
+    request_name = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form__field",
+                "placeholder": "Organisation Name",
+            }
+        ),
+    )
+    request_email = forms.EmailField(
+        required=True,
+        widget=forms.EmailInput(
+            attrs={
+                "class": "form__field",
+                "placeholder": "Organisation Email",
+            }
+        ),
+    )
+    request_tel = forms.CharField(
+        required=True,
+        widget=forms.TextInput(
+            attrs={
+                "class": "form__field",
+                "placeholder": "Organisation Phone Number",
+            }
+        ),
+    )
+    request_pilot = forms.CharField(
+        required=True, widget=forms.Select(attrs={"class": "form__field"})
+    )
+    request_job_type = forms.ModelChoiceField(
+        queryset=JobType.objects.all(),
+        initial="pp",
+        widget=forms.Select(
+            attrs={
+                "class": "form__field",
+            },
+        ),
+    )
+    # request_country = forms.CharField(
+    #     required=True,
+    #     widget=forms.Select(
+    #         attrs={
+    #             "class": "form__field",
+    #         }
+    #     ),
+    # )
+    request_city = forms.CharField(
+        required=True,
+        empty_value="Organisation City",
+        widget=forms.Select(
+            attrs={
+                "class": "form__field",
+            }
+        ),
+    )
+    request_extra_information = forms.CharField(
+        required=True,
+        widget=forms.TextInput(attrs={"class": "form__field"}),
+    )
 
     class Meta:
         model = JobRequestModel
         exclude = (
             "request_id",
+            "request_job_type",
             "request_create_date",
             "request_update_date",
         )
 
-        widgets = {
-            "request_name": forms.TextInput(
-                attrs={
-                    "class": "form__field",
-                    "placeholder": "Organisation Name",
-                    "required": True,
-                }
-            ),
-            "request_email": forms.EmailInput(
-                attrs={
-                    "class": "form__field",
-                    "placeholder": "Organisation Email",
-                    "required": True,
-                }
-            ),
-            "request_tel": forms.TextInput(
-                attrs={
-                    "class": "form__field",
-                    "placeholder": "Organisation Phone Number",
-                    "required": True,
-                }
-            ),
-            "request_pilot": forms.Select(
-                attrs={
-                    "class": "form__field",
-                    "placeholder": "Select Pilot",
-                    "required": True,
-                }
-            ),
-            "request_job_type": forms.Select(
-                attrs={
-                    "class": "form__field",
-                    "empty_label": "Select Job Type",
-                    "required": True,
-                }
-            ),
-            "request_country": forms.Select(
-                attrs={
-                    "class": "form__field",
-                    "placeholder": "Organisation Country",
-                    "required": True,
-                }
-            ),
-            "request_city": forms.Select(
-                attrs={
-                    "class": "form__field",
-                    "placeholder": "Organisation City",
-                    "required": True,
-                }
-            ),
-            "request_extra_information": forms.Textarea(
-                attrs={
-                    "class": "form__field",
-                    "placeholder": "Any extra information you need to tell us?",
-                    "required": True,
-                }
-            ),
-        }
-
         def __init__(self, *args, **kwargs) -> None:
             super().__init__(*args, **kwargs)
             self.fields["city"].queryset = City.objects.none()
+            self.fields["request_pilot"].initial = "Select a pilot"
 
             if "country" in self.data:
                 try:
@@ -293,6 +298,39 @@ class JobRequestsForm(forms.ModelForm):
             self.fields["request_pilot"].queryset = Profile.user.objects.filter(
                 user_type="Pilot"
             )
+
+        widgets = {
+            "request_country": forms.Select(
+                attrs={
+                    "class": "form__field",
+                }
+            )
+        }
+
+    def clean_request_pilot(self):
+        get_pilot = self.cleaned_data.get("request_pilot", "")
+        if get_pilot != "":
+            print(f"something is wring {get_pilot}")
+            pilot_instance = Profile.objects.get(user__id=get_pilot)
+            print(f"{type(pilot_instance)}")
+        else:
+            raise ValidationError(
+                f"This field got an invalid choice - {get_pilot}",
+                code="request_pilot",
+            )
+        return pilot_instance
+
+    def clean_request_city(self):
+        # init
+        city_instance = ""
+        get_user_city_id = self.cleaned_data.get("request_city", "")
+
+        if get_user_city_id != "" and get_user_city_id != "Organisation City":
+            # print(get_user_city_id)
+            city_instance = City.objects.get(id=get_user_city_id)
+        else:
+            raise ValidationError("This field is required", code="request_city")
+        return city_instance
 
 
 class JobReviewForm(forms.ModelForm):
