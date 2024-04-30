@@ -265,14 +265,19 @@ class JobRequestsForm(forms.ModelForm):
     )
     request_extra_information = forms.CharField(
         required=True,
-        widget=forms.TextInput(attrs={"class": "form__field"}),
+        widget=forms.TextInput(
+            attrs={
+                "class": "form__field",
+                "placeholder": "Extra information for the job...",
+            }
+        ),
     )
 
     class Meta:
         model = JobRequestModel
         exclude = (
             "request_id",
-            "request_job_type",
+            # "request_job_type",
             "request_create_date",
             "request_update_date",
         )
@@ -280,8 +285,8 @@ class JobRequestsForm(forms.ModelForm):
         def __init__(self, *args, **kwargs) -> None:
             super().__init__(*args, **kwargs)
             self.fields["city"].queryset = City.objects.none()
-            self.fields["request_pilot"].initial = "Select a pilot"
-
+            # self.fields["request_pilot"].initial = "Select a pilot"
+            # self.fields["request_job_type"].initial = "Select job type"
             if "country" in self.data:
                 try:
                     country_id = int(self.data.get("country"))
