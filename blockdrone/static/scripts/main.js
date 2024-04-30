@@ -74,43 +74,43 @@ TAB3.addEventListener('click', () => {
   IMAGE3.classList.add('slider__image--active');
 });
 
-let userCreds = JSON.parse(sessionStorage.getItem('user-creds'));
-let userInfo = JSON.parse(sessionStorage.getItem('user-info'));
-const PROFILE = document.getElementById('profile');
-const LOGIN = document.getElementById('login-button');
-const SIGNUP = document.getElementById('signup-button');
-const LOGIN_MENU = document.getElementById('login-menu');
-const SIGNUP_MENU = document.getElementById('signup-menu');
-const DROPDOWN = document.getElementById('dropdown');
-const DROPDOWN_MENU = document.getElementById('dropdown-menu');
+// let userCreds = JSON.parse(sessionStorage.getItem('user-creds'));
+// let userInfo = JSON.parse(sessionStorage.getItem('user-info'));
+// const PROFILE = document.getElementById('profile');
+// const LOGIN = document.getElementById('login-button');
+// const SIGNUP = document.getElementById('signup-button');
+// const LOGIN_MENU = document.getElementById('login-menu');
+// const SIGNUP_MENU = document.getElementById('signup-menu');
+// const DROPDOWN = document.getElementById('dropdown');
+// const DROPDOWN_MENU = document.getElementById('dropdown-menu');
 
-if (sessionStorage.getItem('signedIn') === 'false') {
-  DROPDOWN.style.display = 'none';
-  DROPDOWN_MENU.style.display = 'none';
-  LOGIN.style.display = 'unset';
-  SIGNUP.style.display = 'unset';
+// if (sessionStorage.getItem('signedIn') === 'false') {
+//   DROPDOWN.style.display = 'none';
+//   DROPDOWN_MENU.style.display = 'none';
+//   LOGIN.style.display = 'unset';
+//   SIGNUP.style.display = 'unset';
 
-  LOGIN_MENU.style.display = 'unset';
-  SIGNUP_MENU.style.display = 'unset';
-} else {
-  DROPDOWN.style.display = 'unset';
-  DROPDOWN_MENU.style.display = 'unset';
-  LOGIN.style.display = 'none';
-  SIGNUP.style.display = 'none';
+//   LOGIN_MENU.style.display = 'unset';
+//   SIGNUP_MENU.style.display = 'unset';
+// } else {
+//   DROPDOWN.style.display = 'unset';
+//   DROPDOWN_MENU.style.display = 'unset';
+//   LOGIN.style.display = 'none';
+//   SIGNUP.style.display = 'none';
 
-  LOGIN_MENU.style.display = 'none';
-  SIGNUP_MENU.style.display = 'none';
-}
+//   LOGIN_MENU.style.display = 'none';
+//   SIGNUP_MENU.style.display = 'none';
+// }
 
-const SIGN_OUT = document.getElementById('sign-out');
-const SIGN_OUT_MENU = document.getElementById('sign-out-menu');
+// const SIGN_OUT = document.getElementById('sign-out');
+// const SIGN_OUT_MENU = document.getElementById('sign-out-menu');
 
-const signout = () => {
-  sessionStorage.removeItem('user-creds');
-  sessionStorage.removeItem('user-info');
-  sessionStorage.setItem('signedIn','false');
-  window.location.href = './index.html';
-}
+// const signout = () => {
+//   sessionStorage.removeItem('user-creds');
+//   sessionStorage.removeItem('user-info');
+//   sessionStorage.setItem('signedIn','false');
+//   window.location.href = './index.html';
+// }
 
-SIGN_OUT.addEventListener('click', signout);
-SIGN_OUT_MENU.addEventListener('click', signout);
+// SIGN_OUT.addEventListener('click', signout);
+// SIGN_OUT_MENU.addEventListener('click', signout);
