@@ -39,7 +39,7 @@
         <form method="POST" class="form job-review__form">
           {%csrf_token%}
           <div class="form__row">
-            {{job_review_form.review_job}}
+            {{form.review_job}}
             {% comment %} <input
               type="text"
               name="job-id"
@@ -69,7 +69,7 @@
           </div>
 
           <div class="form__row">
-            {% comment %} {{job_review_form.review_pilot}} {% endcomment %}
+            {% comment %} {{form.review_pilot}} {% endcomment %}
             {% comment %} <select
               name="select-pilot"
               id="select-pilot"
@@ -88,7 +88,7 @@
             <label for="points" class="form__label">
               Rate Pilot (between 1 and 5):
             </label>
-            {{job_review_form.review_rating}}
+            {{form.review_rating}}
             {% comment %} <input
               type="range"
               name="rating"
@@ -109,7 +109,7 @@
           </div>
 
           <div class="form__row">
-            {{job_review_form.review_comment}}
+            {{form.review_comment}}
             {% comment %} <textarea
               name=""
               id=""
@@ -125,7 +125,7 @@
               {% comment %} type="submit"
               value="Submit" {% endcomment %}
               class="form__submit"
-            >Submit Review</button>
+            >Submit</button>
           </div>
         </form>
       </div>

@@ -32,85 +32,63 @@
           </a>
         </div>
 
+        {% for key, value in form.errors.items %} {{key}} {{value}} {% endfor %}
+
         <p class="job-request__text">
           Kindly fill the form below and our representative will get in touch with you.
         </p>
+        {% comment %} {{form.errors.request_pilot}} {% endcomment %}
+
+        
 
         <form method="POST" class="form job-request__form" id="jobRequestForm" data-job-cities-url="{% url "ajax_load_job_request_cities" %}">
           {% csrf_token %}
           <div class="form__row">
-            {{job_request_form.request_name}}
-            {% comment %} <input
-              type="text"
-              name="organization-name"
-              id="organization-name"
-              placeholder="Organization Name"
-              class="form__field"
-            > {% endcomment %}
+            {{form.request_name}}
           </div>
 
           <div class="form__row">
-            {{job_request_form.request_email}}
-            {% comment %} <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Email"
-              class="form__field"
-            > {% endcomment %}
-            {{job_request_form.request_tel}}
-            {% comment %} <input
-              type="tel"
-              name="phone"
-              id="phone"
-              placeholder="Telephone Number"
-              class="form__field"
-            > {% endcomment %}
+            {{form.request_email}}
+
+            {{form.request_tel}}
           </div>
 
           <div class="form__row">
-            {{job_request_form.request_pilot}}
-            {% comment %} <select
-              name="select-pilot"
-              id="select-pilot"
-              class="form__field"
-            >
+            <select name="request_pilot" id="id_job_request_form" class="form__field" required>
+
               <option value="default" disabled selected>Select Pilot</option>
-              <option value="Pilot-1">Pilot 1</option>
-              <option value="Pilot-2">Pilot 2</option>
-              <option value="Pilot-3">Pilot 3</option>
-              <option value="Pilot-4">Pilot 4</option>
-              <option value="Pilot-5">Pilot 5</option>
-            </select> {% endcomment %}
-            {{job_request_form.request_job_type}}
-            {% comment %} <select
-              name="select-job-type"
-              id="select-job-type"
-              class="form__field"
-            >
-              <option value="default" disabled selected>Select Job Type</option>
-              <option value="Pilot-1">Aerial Photography and Videography</option>
-              <option value="Pilot-2">Filmmaking and Cinematography</option>
-              <option value="Pilot-3">Event Coverage</option>
-              <option value="Pilot-4">Real Estate Marketing</option>
-              <option value="Pilot-5">Custom Services</option>
-            </select> {% endcomment %}
+              {% for pilot in pilots %}
+              <option value="{{pilot.user.id}}">{{pilot.user.get_full_name}}</option>
+                {% comment %} {% if forloop.first %}
+                  <option value="{{pilot.user}}" >{{pilot.user.get_full_name}}</option>
+                {% else %}
+                  
+                {% endif %} {% endcomment %}
+              {% endfor %}
+              
+            </select> 
+            {{form.request_job_type}}
           </div>
 
           <div class="form__row">
-            {{job_request_form.request_country}}
-            {% comment %} <input
-              type="text"
-              name="address"
-              id="address"
-              class="form__field"
-              placeholder="Organization Address"
-            > {% endcomment %}
-            {{job_request_form.request_city}}
+            <select name="request_country" id="id_request_country" class="form__field" required>
+              <option value="default" disabled selected> Select Country </option>
+              {%for country in countries%}
+              {% if forloop.first %}
+                  <option value="{{country.id}}" >{{country}}</option>
+                {% else %}
+                  <option value="{{country.id}}">{{country}}</option>
+                {% endif %}
+              {% endfor %}
+            </select>
+            
+            {% comment %} {{form.request_country}} {% endcomment %}
+
+            {{form.request_city}}
           </div>
 
           <div class="form__row">
-            {{job_request_form.request_extra_information}}
+            {{form.request_extra_information}}
             {% comment %} <textarea
               name=""
               id=""

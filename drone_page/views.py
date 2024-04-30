@@ -1,10 +1,13 @@
+from typing import Any
 import uuid
 from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.views.generic.edit import CreateView
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate, login, logout
 
@@ -17,7 +20,7 @@ from .forms import (
     JobRequestsForm,
     JobReviewForm,
 )
-from .models import City, Profile, JobRequestModel, JobReviewModel
+from .models import City, Country, Profile, JobRequestModel, JobReviewModel
 
 User = get_user_model()
 # Create your views here.
@@ -259,84 +262,49 @@ def pilot_detail(request, slug):
     return render(request, template_page, context)
 
 
-@login_required
-def job_review(request):
-    # set templage page to load for this view
-    template_page = "drone_page/job-review.html"
-    pilot_self_review = False
-    # check if post request sent on this page = form has been submitted
-    if request.method == "POST":
-        # get the submitted values in the requests
-        submitted_job_review_form = JobReviewForm(request.POST)
-        # validate the inputs
-        if submitted_job_review_form.is_valid():
-            # get form cleaned_data
-            cleaned_form_data = submitted_job_review_form.cleaned_data
-            reviewed_job = cleaned_form_data["review_job"]
-            # check if logged in user is the pilot on the job
-            if request.user.id != reviewed_job.request_pilot.user.id:
-                # create review object
-                new_review = JobReviewModel(
-                    review_job=reviewed_job,
-                    review_pilot=reviewed_job.request_pilot,
-                    review_rating=cleaned_form_data["review_rating"],
-                    review_comment=cleaned_form_data["review_comment"],
-                )
-                # save
-                new_review.save()
+@method_decorator(login_required, name="dispatch")
+class JobReview(CreateView):
 
-                # submitted_job_review_form.save()
-                return HttpResponsePermanentRedirect(reverse("index"))
-            else:
-                # pilot trying to review themselves
-                pilot_self_review = True
-                return HttpResponsePermanentRedirect(reverse("job-review"))
+    # set the template for this view
+    template_name = "drone_page/job-review.html"
+    # define the model used in this class
+    model = JobReviewModel
+    # set the form used in this view
+    form_class = JobReviewForm
 
-        else:
-            print("something wrong")
-            print(submitted_job_review_form.errors)
-            return HttpResponsePermanentRedirect(reverse("job-review"))
-    else:
-        submitted_job_review_form = JobReviewForm()
+    def form_valid(self, form):
+        form_obj = form.save(commit=False)
+        if form_obj.request.user != form.obj.review_job.request_pilot.user:
+            super().form_valid(form)
+        # form.instance.user - if I have excluded this from the form view I can use this
 
-    context = {
-        "job_review_form": submitted_job_review_form,
-        "pilot_self_review": pilot_self_review,
-    }
+    def get_success_url(self) -> str:
+        return HttpResponsePermanentRedirect(reverse("index"))
 
-    return render(request, template_page, context)
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        # get view context and save as dictionary
+        context = super().get_context_data(**kwargs)
+        # can add necessary context
+        # context["pilot_self_review"] = pilot_self_review
+        return context
 
+    # pass
 
-def job_request(request):
+class JobRequest(CreateView):
+    model = JobRequestModel
+    form_class = JobRequestsForm
+    template_name = "drone_page/job-request.html"
+    success_url = "index"
 
-    template_page = "drone_page/job-request.html"
-    # check for post request - form has been submitted
-    if request.method == "POST":
+    def form_valid(self, form):
+        super().form_valid(form)
+        return HttpResponsePermanentRedirect(reverse('index'))
 
-        # get the submitted values in the request
-        submitted_job_request_form = JobRequestsForm(request.POST)
-
-        # validate the inputs
-        if submitted_job_request_form.is_valid():
-
-            # save the submitted details to the database
-            submitted_job_request_form.save()
-
-            # Permanently redirect the user to the home page
-            return HttpResponsePermanentRedirect(reverse("index"))
-
-        else:
-            print("something wrong")
-            print(submitted_job_request_form.errors)
-            return HttpResponsePermanentRedirect(reverse("job-request"))
-
-    # request is not post - load the form with no values
-    else:
-        submitted_job_request_form = JobRequestsForm()
-
-    context = {"job_request_form": submitted_job_request_form}
-
-    return render(request, template_page, context)
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        context["pilots"] = Profile.objects.filter(user__user_type="Pilot")
+        context["countries"] = Country.objects.all()
+        return context
 
 
 def load_cities(request):
