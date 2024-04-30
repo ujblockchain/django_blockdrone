@@ -1,0 +1,61 @@
+{%load static%}
+<div class="browse__item">
+    <img
+    {%if pilot.profile_image%}
+    src="{{pilot.profile_image.url}}"
+    alt="{{pilot.first_name}} icon"
+    {%else%}
+    src="{% static "images/no-icon.webp"%}"
+    alt="no icon"
+    {%endif%}
+      
+      class="browse__image"
+    >
+
+    <div class="browse__text">
+      <a
+        href="{{pilot.get_absolute_url}}"
+        class="browse__name"
+      >
+        {{pilot.user.get_full_name}}
+      </a>
+
+      <div class="browse__text-row browse__text-row--border">
+        <p>{{pilot.profile|truncatewords:10}} </p>
+      </div>
+
+      <div class="browse__text-row">
+        <img
+          src={% static "images/icons/pin.webp"%}
+          alt="pin icon"
+          class="browse__icon"
+        >
+        <p>{{pilot.city}}, {{pilot.country}}</p>
+      </div>
+
+      <div class="browse__text-row">
+        <img
+          src={% static "images/icons/rand.webp"%}
+          alt="pin icon"
+          class="browse__icon"
+        >
+        <p><span class="bold">Hourly. Rate:</span> R{{pilot.hourly_rate}}/hr</p>
+      </div>
+
+      <div class="browse__text-row">
+        <img
+          src={% static "images/icons/rating.webp"%}
+          alt="pin icon"
+          class="browse__icon"
+        >
+        <p><span class="bold">Rating:</span> 5 <span class="italic">({{pilot.request_job}})</span></p>
+      </div>
+
+      <a
+        href="{% url "job-request"%}"
+        class="button browse__item-button"
+      >
+        Request A Quote
+      </a>
+    </div>
+  </div>

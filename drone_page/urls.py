@@ -1,9 +1,9 @@
 from django.urls import path
 from . import views
-from .views import JobRequest, JobReview
+from .views import IndexView, JobRequest, JobReview
 
 urlpatterns = [
-    path("", views.index, name="index"),
+    path("", IndexView.as_view(), name="index"),
     path("browse-pilots", views.browse_pilots, name="browse-pilots"),
     path("browse-pilots/<slug:slug>", views.pilot_detail, name="pilot-detail"),
     path("job-review", JobReview.as_view(), name="job-review"),

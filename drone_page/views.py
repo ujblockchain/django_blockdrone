@@ -1,8 +1,14 @@
 from typing import Any
 import uuid
+from django.forms import BaseModelForm, ValidationError
 from django.shortcuts import get_object_or_404, render
-from django.http import HttpResponsePermanentRedirect, HttpResponseRedirect
+from django.http import (
+    HttpResponse,
+    HttpResponsePermanentRedirect,
+    HttpResponseRedirect,
+)
 from django.urls import reverse, reverse_lazy
+from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView
 from django.contrib import messages
 from django.contrib.auth import get_user_model
@@ -20,7 +26,7 @@ from .forms import (
     JobRequestsForm,
     JobReviewForm,
 )
-from .models import City, Country, Profile, JobRequestModel, JobReviewModel
+from .models import City, Country, JobType, Profile, JobRequestModel, JobReviewModel
 
 User = get_user_model()
 # Create your views here.
@@ -225,13 +231,23 @@ def user_features(request):
     return render(request, template_page, context)
 
 
-def index(request):
+class IndexView(TemplateView):
+    # set template to be rendered
+    template_name = "drone_page/index.html"
 
-    # index_page
-    template_page = "drone_page/index.html"
-    context = {}
-
-    return render(request, template_page, context)
+    # get context
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        # define page context dictionary
+        context = super().get_context_data(**kwargs)
+        # get the reviews
+        reviews = JobReviewModel.objects.all()
+        # add reviews to context dictionary
+        context["reviews"] = reviews
+        # get the pilots
+        pilots = Profile.objects.filter(user__user_type="Pilot")
+        # add pilots to the context dictionary
+        context["pilots"] = pilots
+        return context
 
 
 def browse_pilots(request):
@@ -272,23 +288,30 @@ class JobReview(CreateView):
     # set the form used in this view
     form_class = JobReviewForm
 
-    def form_valid(self, form):
-        form_obj = form.save(commit=False)
-        if form_obj.request.user != form.obj.review_job.request_pilot.user:
-            super().form_valid(form)
-        # form.instance.user - if I have excluded this from the form view I can use this
+    # define success url
+    success_url = "index"
 
-    def get_success_url(self) -> str:
-        return HttpResponsePermanentRedirect(reverse("index"))
+    def get_form_kwargs(self) -> dict[str, Any]:
+        return super().get_form_kwargs()
+
+    def form_valid(self, form: BaseModelForm) -> HttpResponse:
+        form_obj = form.save(commit=False)
+
+        if self.request.user != form_obj.review_job.request_pilot.user:
+            form_obj.request_pilot = form_obj.review_job.request_pilot
+            form_obj.save()
+            return HttpResponsePermanentRedirect(reverse("index"))
+        else:
+            messages.error(self.request, "Pilot cannot self review")
+            return super().form_invalid(form)
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         # get view context and save as dictionary
         context = super().get_context_data(**kwargs)
-        # can add necessary context
-        # context["pilot_self_review"] = pilot_self_review
         return context
 
     # pass
+
 
 class JobRequest(CreateView):
     model = JobRequestModel
@@ -297,13 +320,15 @@ class JobRequest(CreateView):
     success_url = "index"
 
     def form_valid(self, form):
+        # save the form
         super().form_valid(form)
-        return HttpResponsePermanentRedirect(reverse('index'))
+        return HttpResponsePermanentRedirect(reverse("index"))
 
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         context = super().get_context_data(**kwargs)
         context["pilots"] = Profile.objects.filter(user__user_type="Pilot")
         context["countries"] = Country.objects.all()
+        context["job_types"] = JobType.objects.all()
         return context
 
 
