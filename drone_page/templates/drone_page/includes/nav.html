@@ -19,60 +19,67 @@
     </ul>
 
     <div class="header__container">
+      {% comment %} if authenticated dont show {% endcomment %}
+      {%if not auth_status %}
       <a
-        href="{% url "login" %} "
-        class="button button--white header__button"
-        id="login-button"
-      >
-        Login
-      </a>
+      href="{% url "login" %} "
+      class="button button--white header__button"
+      id="login-button"
+    >
+      Login
+    </a>
 
-      <a
-        href="{% url "sign-up" %}"
-        class="button button--white header__button"
-        id="signup-button"
-      >
-        Sign Up
-      </a>
-
+    <a
+      href="{% url "sign-up" %}"
+      class="button button--white header__button"
+      id="signup-button"
+    >
+      Sign Up
+    </a>
+    {%endif%}
+    
+      {% comment %} if authenticated show {% endcomment %}
       <div class="dropdown" id="dropdown">
         <div class="dropdown__background" id="dropdown-background"></div>
-
-        <img src="" alt="user icon" class="profile-image dropdown__image-small" id="dropdown-button">
-
+        {%if auth_status%}
+        <img src="{%static "images/icons/menu.webp"%}" alt="user icon" class="profile-image dropdown__image-small" id="dropdown-button">
+        {%endif%}
         <div class="dropdown__content" id="dropdown-content">
           <div class="dropdown__content-top">
             <img
-              src=""
+            {%if user_logged_in.profile.profile_image%}
+              src="{{user_logged_in.profile.profile_image.url}}"
               alt="icon"
+            {%else%}
+            src="{% static "drone_page/images/default.png"%}"
+            {%endif%}
               class="profile-image dropdown__image"
             >
-
             <p id="dropdown-user-name"></p>
           </div>
 
           <ul class="dropdown__list">
             <li class="dropdown__item">
               <div>
-                <a href="./pages/profile/dashboard.html" class="dropdown__link">My Profile</a>
+                <a href="{% url "dashboard"%}" class="dropdown__link">My Profile</a>
               </div>
             </li>
 
             <li class="dropdown__item">
               <div>
-                <a href="./pages/profile/account-settings.html" class="dropdown__link">Account Settings</a>
+                <a href="{% url "account-settings"%}"class="dropdown__link">Account Settings</a>
               </div>
             </li>
 
             <li class="dropdown__item">
               <div>
-                <a href="./pages/profile/favourites.html" class="dropdown__link">Favourite Pilots</a>
+                <a href="{% url "favourites"%}"  class="dropdown__link">Favourite Pilots</a>
               </div>
             </li>
 
             <li class="dropdown__item">
               <div>
-                <a href="./pages/profile/blocked.html" class="dropdown__link">Blocked Pilots</a>
+                <a href="{% url "blocked"%}" class="dropdown__link">Blocked Pilots</a>
               </div>
             </li>
 
@@ -84,7 +91,7 @@
           </ul>
 
           <div class="dropdown__content-bottom">
-            <a href="{%url "index"%}" class="dropdown__button" id="sign-out">Sign Out</a>
+            <a href="{%url "logout"%}" class="dropdown__button" id="sign-out">Sign Out</a>
           </div>
         </div>
       </div>
@@ -115,6 +122,7 @@
       </ul>
 
       <div class="header__container header__container--menu">
+        {%if not auth_status%}
         <a
           href="{% url "login" %} "
           class="button button--white header__button"
@@ -130,7 +138,7 @@
         >
           Sign Up
         </a>
-
+        {%endif%}
         <div class="dropdown" id="dropdown-menu">
           <div class="dropdown__background" id="dropdown-background-menu"></div>
 

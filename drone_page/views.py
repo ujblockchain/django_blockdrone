@@ -239,6 +239,12 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
         # define page context dictionary
         context = super().get_context_data(**kwargs)
+        # check if authenticated
+        authenticated_status = self.request.user.is_authenticated
+        context["auth_status"] = authenticated_status
+        # if the user is authenticated then add the user to the context
+        if authenticated_status:
+            context["user_logged_in"] = self.request.user
         # get the reviews
         reviews = JobReviewModel.objects.all()
         # add reviews to context dictionary
